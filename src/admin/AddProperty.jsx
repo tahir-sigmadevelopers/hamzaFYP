@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Sidebar from './Sidebar'
-import { createProduct, fetchAllCategories } from '../redux/reducers/products'
 import { Skeleton } from '../components/Loader'
 
 const AddProperty = () => {

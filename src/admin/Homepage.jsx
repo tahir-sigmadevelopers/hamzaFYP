@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchLatestProducts, fetchProducts } from '../redux/reducers/products';
+import { useDispatch } from 'react-redux'
 import Sidebar from './Sidebar';
 
 const Hompage = () => {
