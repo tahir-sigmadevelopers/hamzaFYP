@@ -1,8 +1,10 @@
+import { Link } from "react-router-dom";
+
 const Header = () => {
   return (
-    <header className="bg-white shadow-md">
+    <header className="bg-white shadow-md mt-4">
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
-        <h1 className="text-xl font-bold text-blue-600">HomeBid</h1>
+        <Link to={"/"}><h1 className="text-xl font-bold text-blue-600">HomeBid</h1></Link>
         <input
           type="text"
           placeholder="Search by City, State, Zip Code, Address or County"

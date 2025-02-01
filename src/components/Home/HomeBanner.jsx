@@ -3,10 +3,11 @@ import React from "react";
 const HomeBanner = () => {
   return (
     <div
-      className="bg-cover bg-center h-[70vh] flex flex-col justify-center items-center text-center relative"
+      className="bg-cover  bg-center h-[70vh] flex flex-col justify-center items-center text-center relative"
       style={{
         backgroundImage:
-          "url('https://source.unsplash.com/1600x900/?houses')",
+          "url('/banner.jpg')",
+          opacity:0.99
       }}
     >
       <div className="bg-black bg-opacity-40 absolute inset-0"></div>
