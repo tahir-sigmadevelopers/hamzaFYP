@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import { Skeleton } from '../components/Loader'
 
-const AddProperty = () => {
+const EditProperty = () => {
 
 
     const [location, setLocation] = useState("")
@@ -18,6 +18,7 @@ const AddProperty = () => {
     const [date_listed, setDateListed] = useState(new Date(Date.now()))
     const [images, setImages] = useState([]);
     const [description, setDescription] = useState("")
+    const [loading, setLoading] = useState(false)
 
     const navigate = useNavigate()
 
@@ -28,15 +29,13 @@ const AddProperty = () => {
 
 
 
-
-
     const handleImageUpload = (e) => {
         setImages(Array.from(e.target.files)); // Store file objects directly
     };
 
 
 
-    const addPropertySubmit = async (e) => {
+    const editPropertySubmit = async (e) => {
         e.preventDefault()
 
 
@@ -50,44 +49,68 @@ const AddProperty = () => {
         data.set("actual_price", actual_price);
         data.set("owner_name", owner_name);
         data.set("date_listed", formatDate(date_listed));
-        console.log("main hoon date listed", date_listed);
 
         for (let i = 0; i < images.length; i++) {
             data.append("images", images[i]);
         }
 
         try {
-            const response = await fetch('http://localhost:8000/api/auth/properties-create/', {
-                method: 'POST',
+            const response = await fetch(`http://localhost:8000/property/update/${id}/`, {
+                method: 'PUT',
                 body: data,
             });
 
-            console.log(response);
             if (response.ok) {
-                toast.success('Property Added Successfully')
-
-                setLocation("")
-                setAddress("")
-                setSize("")
-                setBedRooms(0)
-                setBathrooms(0)
-                setActual_price(0)
-                setPredicted_price(0)
-                setImages([])
+                toast.success('Property Updated Successfully')
 
                 navigate("/admin/properties");
             } else {
-                toast.error('Failed to create property');
+                toast.error('Failed to Update property');
             }
         } catch (error) {
-            toast.error('An error occurred', error);
+            toast.error('Failed to Update Property', error);
         }
 
 
     }
 
+    const params = useParams()
+
+    const { id } = params;
+
+    const getPropertyDetails = async () => {
+        try {
+            const response = await fetch(`http://localhost:8000/property/edit/${id}/`);
+            let data = await response.json()
+
+            console.log(data);
+            // setProperty(data)
+
+            if (!response.ok) {
+                toast.error('Failed to fetch property details');
+                return;
+            }
 
 
+            setLocation(data?.location)
+            setAddress(data?.address)
+            setOwnerName(data?.owner_name)
+            setSize(data?.size)
+            setBedRooms(data?.bedrooms)
+            setBathrooms(data?.bathrooms)
+            setPredicted_price(data?.predicted_price)
+            // setDateListed(data?.date_listed.toISOString())
+            
+
+        } catch (error) {
+            toast.error('An error occurred', error);
+        }
+    }
+
+
+    useEffect(() => {
+        getPropertyDetails()
+    }, [id])
 
 
 
@@ -98,11 +121,11 @@ const AddProperty = () => {
 
             <div className="flex min-h-full container flex-col justify-center px-6 py-4 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                    <h2 className="mt-4 text-center text-2xl font-bold leading-4 tracking-tight">Add Property </h2>
+                    <h2 className="mt-4 text-center text-2xl font-bold leading-4 tracking-tight">Edit Property </h2>
                 </div>
 
                 <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form onSubmit={addPropertySubmit} className="space-y-1" encType="multipart/form-data">
+                    <form onSubmit={editPropertySubmit} className="space-y-1" encType="multipart/form-data">
                         <div>
                             <label htmlFor="owner_name" className="block text-sm font-medium leading-6">Owner Name</label>
                             <div className="mt-1">
@@ -202,7 +225,7 @@ const AddProperty = () => {
 
                         <div>
                             {
-                                !"createLoading" ? <Skeleton length={1} /> : <button type="submit" className="flex w-full justify-center rounded-md bg-yellow-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offappend-2  mt-4">Create</button>
+                                !"createLoading" ? <Skeleton length={1} /> : <button type="submit" className="flex w-full justify-center rounded-md bg-yellow-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offappend-2  mt-4">Update</button>
                             }
                         </div>
                     </form>
@@ -215,4 +238,4 @@ const AddProperty = () => {
     )
 }
 
-export default AddProperty
+export default EditProperty

@@ -11,6 +11,7 @@ import Contact from "./components/Contact"
 import HomePage from "./admin/Homepage"
 import AddProperty from "./admin/AddProperty"
 import AllProperties from "./admin/AllProperties"
+import EditProperty from "./admin/EditProperty"
 const App = () => {
   return (
     <>
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/sign-in" element={<Login />} />
           <Route path="/admin/dashboard" element={<HomePage />} />
           <Route path="/admin/add-property" element={<AddProperty />} />
+          <Route path="/admin/edit-property/:id" element={<EditProperty />} />
           <Route path="/admin/properties" element={<AllProperties />} />
         </Routes>
         <Footer />

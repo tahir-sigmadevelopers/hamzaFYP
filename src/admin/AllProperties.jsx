@@ -99,7 +99,7 @@ const AllProperties = () => {
                                                     <td className="px-4 py-3 border-b border-gray-300">{property.date_listed}</td>
                                                     <td className="px-4 py-3 text-lg border-b border-gray-300">
                                                         <button className='bg-black hover:bg-gray-700 text-white w-full py-0.5 rounded-md px-3'>
-                                                            <Link to={`/dashboard/property/${property?.id}`}>Edit</Link>
+                                                            <Link to={`/admin/edit-property/${property?.id}`}>Edit</Link>
                                                         </button>
                                                     </td>
                                                     <td className="px-4 py-3 text-lg border-b border-gray-300">
