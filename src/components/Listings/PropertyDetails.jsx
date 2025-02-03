@@ -9,7 +9,7 @@ const PropertyDetails = ({property}) => {
         </p>
        
         <p className="text-gray-700 mb-4">
-          {property?.description}
+         Description: {property?.description}
         </p>
        
       </div>
