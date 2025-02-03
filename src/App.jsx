@@ -12,6 +12,7 @@ import HomePage from "./admin/Homepage"
 import AddProperty from "./admin/AddProperty"
 import AllProperties from "./admin/AllProperties"
 import EditProperty from "./admin/EditProperty"
+import About from "./components/About"
 const App = () => {
   return (
     <>
@@ -19,6 +20,7 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/properties" element={<Listings />} />
           <Route path="/properties/details/:id" element={<ListingDetails />} />

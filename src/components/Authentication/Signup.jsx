@@ -18,6 +18,9 @@ const Signup = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(signup(formData));
+        if (!isError) {
+            toast.success(`Sign Up Successfully`)
+        }
     };
 
     return (

@@ -21,7 +21,7 @@ const Login = () => {
         e.preventDefault();
         dispatch(signin(formData));
         if (!isError) {
-            toast.success(`Welcome Back ${user.user_name}`)
+            toast.success(`Welcome Back ${user?.user_name}`)
         }
     };
     return (
