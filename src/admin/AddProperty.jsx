@@ -43,6 +43,7 @@ const AddProperty = () => {
         const data = new FormData();
         data.set("location", location)
         data.set("address", address)
+        data.set("description", description)
         data.set("size", size)
         data.set("bedrooms", bedRooms);
         data.set("bathrooms", bathRooms);
@@ -169,7 +170,7 @@ const AddProperty = () => {
                         <div>
                             <label htmlFor="description" className="block text-sm font-medium leading-6">Description</label>
                             <div className="mt-2">
-                                <textarea name="description" rows="4" className="w-full text-sm text-gray-900 bg-white   focus:ring-0  border p-1 border-black rounded-sm" placeholder="Write Property Description..." value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+                                <textarea name="description"  rows="4" className="w-full text-sm text-gray-900 bg-white   focus:ring-0  border p-1 border-black rounded-sm" placeholder="Write Property Description..." value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
 
                             </div>
                         </div>
