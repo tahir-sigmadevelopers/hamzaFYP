@@ -55,6 +55,7 @@ const EditProperty = () => {
         }
 
         try {
+            setLoading(true);
             const response = await fetch(`http://localhost:8000/property/update/${id}/`, {
                 method: 'PUT',
                 body: data,
@@ -62,12 +63,13 @@ const EditProperty = () => {
 
             if (response.ok) {
                 toast.success('Property Updated Successfully')
-
+                setLoading(false);
                 navigate("/admin/properties");
             } else {
                 toast.error('Failed to Update property');
             }
         } catch (error) {
+            setLoading(false);
             toast.error('Failed to Update Property', error);
         }
 
@@ -100,7 +102,7 @@ const EditProperty = () => {
             setBathrooms(data?.bathrooms)
             setPredicted_price(data?.predicted_price)
             // setDateListed(data?.date_listed.toISOString())
-            
+
 
         } catch (error) {
             toast.error('An error occurred', error);
@@ -225,7 +227,7 @@ const EditProperty = () => {
 
                         <div>
                             {
-                                !"createLoading" ? <Skeleton length={1} /> : <button type="submit" className="flex w-full justify-center rounded-md bg-yellow-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offappend-2  mt-4">Update</button>
+                              loading ? <Skeleton length={1} /> : <button type="submit" className="flex w-full justify-center rounded-md bg-yellow-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offappend-2  mt-4">Update</button>
                             }
                         </div>
                     </form>

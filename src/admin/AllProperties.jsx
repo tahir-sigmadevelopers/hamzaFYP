@@ -21,7 +21,6 @@ const AllProperties = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log('main data', data);
                 setProperties(data)
                 setLoading(false)
             }
