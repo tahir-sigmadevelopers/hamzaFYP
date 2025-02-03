@@ -27,11 +27,7 @@ const About = () => {
                                 HomeBid
                             </p>
                             <p className="md:text-xl sm:text-lg text-base mt-2 text-justify sm:px-2 dark:text-gray-300">At HomeBid,
-                                we believe in the transformative power of flowers. Our blooms are not just arrangements; they are
-                                expressions of beauty, joy, and emotion. From elegant bouquets to enchanting floral designs, we
-                                curate every creation with precision and care. Whether it's a celebration, a gesture of love, or a
-                                moment of solace, HomeBid's exquisite flowers speak a language of their own, bringing nature's
-                                beauty to your doorstep. Experience the enchantment of HomeBid and let flowers tell your story.
+                            we offers a wealth of information to assist each buyer. Our customer service team is available seven days a week to answer questions. Create your free account today and gain access to exclusive auction inventory.
                             </p>
 
                             <Link to={"/"} className="lg:mt-10 mt-6 lg:px-6 px-4 lg:py-4 py-2 bg-green-600 rounded-sm lg:text-xl text-lg text-white font-semibold">Read More</Link>
