@@ -15,15 +15,17 @@ const properties2 = [
 
 ];
 
-const PropertyGrid = ({properties}) => {
+export const server = 'http://127.0.0.1:8000/'
+
+const PropertyGrid = ({ properties }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {properties.map((property) => (
         <Link to={`/properties/details/${property?.id}`} key={property.id} className="bg-white shadow-md rounded-md overflow-hidden">
           <img
-            src={property.imageUrl}
-            alt={property.address}
-            className="w-full h-48 object-cover"
+            src={`${server}/${property?.images[0]?.image}` }
+          alt={property.address}
+          className="w-full h-48 object-cover"
           />
           <div className="p-4">
             <h2 className="text-lg font-bold">{property.address}</h2>

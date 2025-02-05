@@ -16,7 +16,7 @@ const Navbar = () => {
           Listings
         </Link>
         <Link to="/about" className="text-gray-700 hover:text-blue-600">
-         About
+          About
         </Link>
         <Link to="/contact" className="text-gray-700 hover:text-blue-600">
           Contact
@@ -28,6 +28,10 @@ const Navbar = () => {
           |{" "}
           <Link to="/sign-up" className="text-blue-600 font-semibold">
             Sign Up
+          </Link>{" "}
+          |{" "}
+          <Link to="/admin/dashboard" className="text-blue-600 font-semibold">
+            Admin Dashboard
           </Link>
         </div>
       </div>

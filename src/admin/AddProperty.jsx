@@ -16,7 +16,7 @@ const AddProperty = () => {
     const [actual_price, setActual_price] = useState(0)
     const [owner_name, setOwnerName] = useState("")
     const [date_listed, setDateListed] = useState(new Date(Date.now()))
-    const [images, setImages] = useState([]);
+    const [images, setImages] = useState([""]);
     const [description, setDescription] = useState("")
 
     const navigate = useNavigate()
@@ -31,7 +31,10 @@ const AddProperty = () => {
 
 
     const handleImageUpload = (e) => {
+        // setImages((e.target.files[0])); // Store file objects directly
+        
         setImages(Array.from(e.target.files)); // Store file objects directly
+        console.log("I am image upload", e.target.files[0]);
     };
 
 
@@ -52,6 +55,7 @@ const AddProperty = () => {
         data.set("owner_name", owner_name);
         data.set("date_listed", formatDate(date_listed));
         console.log("main hoon date listed", date_listed);
+        // data.append("images", images, images.name);
 
         for (let i = 0; i < images.length; i++) {
             data.append("images", images[i]);
@@ -114,6 +118,7 @@ const AddProperty = () => {
                             <label htmlFor="date_listed" className="block text-sm font-medium leading-6">Date Listed</label>
                             <div className="mt-1">
                                 <input
+                                    disabled
                                     value={formatDate(date_listed)}
                                     type="data" name='date_listed'
                                     onChange={(e) => setDateListed(new Date(e.target.value))}
@@ -170,7 +175,7 @@ const AddProperty = () => {
                         <div>
                             <label htmlFor="description" className="block text-sm font-medium leading-6">Description</label>
                             <div className="mt-2">
-                                <textarea name="description"  rows="4" className="w-full text-sm text-gray-900 bg-white   focus:ring-0  border p-1 border-black rounded-sm" placeholder="Write Property Description..." value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
+                                <textarea name="description" rows="4" className="w-full text-sm text-gray-900 bg-white   focus:ring-0  border p-1 border-black rounded-sm" placeholder="Write Property Description..." value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
 
                             </div>
                         </div>
@@ -191,11 +196,11 @@ const AddProperty = () => {
                                     type="file"
 
                                 />
-                                <div className="flex h-20 w-10 gap-4 mt-5  overflow-hidden">
+                                {/* <div className="flex h-20 w-10 gap-4 mt-5  overflow-hidden">
                                     {images && images.map((image, index) => (
                                         <img key={index} src={image} alt={`Preview ${index + 1}`} className='w-10 h-10' />
                                     ))}
-                                </div>
+                                </div> */}
 
 
                             </div>
