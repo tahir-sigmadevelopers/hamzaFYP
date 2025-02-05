@@ -56,7 +56,7 @@ const EditProperty = () => {
 
         try {
             setLoading(true);
-            const response = await fetch(`http://localhost:8000/property/update/${id}/`, {
+            const response = await fetch(`https://homebidding-backend.onrender.com/property/update/${id}/`, {
                 method: 'PUT',
                 body: data,
             });
@@ -82,7 +82,7 @@ const EditProperty = () => {
 
     const getPropertyDetails = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/property/edit/${id}/`);
+            const response = await fetch(`https://homebidding-backend.onrender.com/property/edit/${id}/`);
             let data = await response.json()
 
             console.log(data);

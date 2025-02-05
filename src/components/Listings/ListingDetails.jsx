@@ -15,10 +15,9 @@ const ListingDetails = () => {
   const params = useParams()
 
   const { id } = params;
-
   const getPropertyDetails = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/property/edit/${id}/`);
+      const response = await fetch(`https://homebidding-backend.onrender.com/property/edit/${id}/`);
       let data = await response.json()
 
       console.log(data);

@@ -15,7 +15,7 @@ const Listings = () => {
     const getAllProperties = async () => {
         try {
             setLoading(true)
-            const response = await fetch('http://localhost:8000/properties/');
+            const response = await fetch('https://homebidding-backend.onrender.com/properties/');
 
             if (response.ok) {
                 const data = await response.json();

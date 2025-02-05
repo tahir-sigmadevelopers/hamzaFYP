@@ -17,7 +17,7 @@ const AllProperties = () => {
     const getAllProperties = async () => {
         try {
             setLoading(true)
-            const response = await fetch('http://localhost:8000/properties/');
+            const response = await fetch('https://homebidding-backend.onrender.com/properties/');
 
             if (response.ok) {
                 const data = await response.json();
@@ -33,7 +33,7 @@ const AllProperties = () => {
 
 
     const deleteProperty = (propertyId) => {
-        fetch(`http://localhost:8000/property/delete/${propertyId}/`, {
+        fetch(`https://homebidding-backend.onrender.com/property/delete/${propertyId}/`, {
             method: 'DELETE',
         })
             .then((response) => {

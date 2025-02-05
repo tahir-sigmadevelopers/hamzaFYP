@@ -62,7 +62,7 @@ const AddProperty = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:8000/api/auth/properties-create/', {
+            const response = await fetch('https://homebidding-backend.onrender.com/api/auth/properties-create/', {
                 method: 'POST',
                 body: data,
             });
