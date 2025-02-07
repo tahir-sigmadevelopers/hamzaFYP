@@ -13,6 +13,7 @@ import AddProperty from "./admin/AddProperty"
 import AllProperties from "./admin/AllProperties"
 import EditProperty from "./admin/EditProperty"
 import About from "./components/About"
+import PricePrediction from "./components/PricePrediction"
 const App = () => {
   return (
     <>
@@ -23,6 +24,9 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/properties" element={<Listings />} />
+          <Route path="/predict-price" element={<PricePrediction />} />
+
+
           <Route path="/properties/details/:id" element={<ListingDetails />} />
           <Route path="/sign-up" element={<Signup />} />
           <Route path="/sign-in" element={<Login />} />

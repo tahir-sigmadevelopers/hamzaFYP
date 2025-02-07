@@ -21,6 +21,9 @@ const Navbar = () => {
         <Link to="/contact" className="text-gray-700 hover:text-blue-600">
           Contact
         </Link>
+        <Link to="/predict-price" className="text-gray-700 hover:text-blue-600">
+          Price Prediction 
+        </Link>
         <div>
           <Link to="/sign-in" className="text-blue-600 font-semibold">
             Sign In
