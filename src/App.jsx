@@ -14,6 +14,7 @@ import AllProperties from "./admin/AllProperties"
 import EditProperty from "./admin/EditProperty"
 import About from "./components/About"
 import PricePrediction from "./components/PricePrediction"
+import PropertyBidding from "./components/PropertyBidding"
 const App = () => {
   return (
     <>
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/properties" element={<Listings />} />
           <Route path="/predict-price" element={<PricePrediction />} />
+          <Route path="/bidding/:id" element={<PropertyBidding />} />
 
 
           <Route path="/properties/details/:id" element={<ListingDetails />} />

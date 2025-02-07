@@ -3,6 +3,7 @@ import { toast } from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import { Skeleton } from '../components/Loader'
+import { server } from '../components/Listings/PropertyGrid'
 
 const EditProperty = () => {
 
@@ -82,7 +83,7 @@ const EditProperty = () => {
 
     const getPropertyDetails = async () => {
         try {
-            const response = await fetch(`https://homebidding-backend.onrender.com/property/edit/${id}/`);
+            const response = await fetch(`${server}property/edit/${id}/`);
             let data = await response.json()
 
             console.log(data);
@@ -227,7 +228,7 @@ const EditProperty = () => {
 
                         <div>
                             {
-                              loading ? <Skeleton length={1} /> : <button type="submit" className="flex w-full justify-center rounded-md bg-yellow-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offappend-2  mt-4">Update</button>
+                                loading ? <Skeleton length={1} /> : <button type="submit" className="flex w-full justify-center rounded-md bg-yellow-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offappend-2  mt-4">Update</button>
                             }
                         </div>
                     </form>

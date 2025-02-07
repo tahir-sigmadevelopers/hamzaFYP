@@ -6,6 +6,7 @@ import GuideSection from "./GuideSection";
 import LocationMap from "./LocationMap";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import { server } from "./PropertyGrid";
 
 const ListingDetails = () => {
 
@@ -17,7 +18,7 @@ const ListingDetails = () => {
   const { id } = params;
   const getPropertyDetails = async () => {
     try {
-      const response = await fetch(`https://homebidding-backend.onrender.com/property/edit/${id}/`);
+      const response = await fetch(`${server}property/edit/${id}/`);
       let data = await response.json()
 
       console.log(data);

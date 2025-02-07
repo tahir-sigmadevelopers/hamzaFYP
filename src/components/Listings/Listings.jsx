@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Filters from "./Filters";
-import PropertyGrid from "./PropertyGrid";
+import PropertyGrid, { server } from "./PropertyGrid";
 import Header from "./SearchBar";
 import toast from "react-hot-toast";
 
@@ -15,7 +15,7 @@ const Listings = () => {
     const getAllProperties = async () => {
         try {
             setLoading(true)
-            const response = await fetch('https://homebidding-backend.onrender.com/properties/');
+            const response = await fetch(`${server}/properties/`);
 
             if (response.ok) {
                 const data = await response.json();

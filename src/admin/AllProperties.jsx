@@ -12,12 +12,12 @@ const AllProperties = () => {
     const [loading, setLoading] = useState(false)
     const [properties, setProperties] = useState([])
 
-
+    const server = 'https://homebidding-backend.onrender.com'
 
     const getAllProperties = async () => {
         try {
             setLoading(true)
-            const response = await fetch('https://homebidding-backend.onrender.com/properties/');
+            const response = await fetch(`${server}/properties/`);
 
             if (response.ok) {
                 const data = await response.json();
@@ -33,7 +33,7 @@ const AllProperties = () => {
 
 
     const deleteProperty = (propertyId) => {
-        fetch(`https://homebidding-backend.onrender.com/property/delete/${propertyId}/`, {
+        fetch(`${server}/delete/${propertyId}/`, {
             method: 'DELETE',
         })
             .then((response) => {
