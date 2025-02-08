@@ -15,7 +15,7 @@ const HomeBanner = () => {
         <h1 className="text-white text-4xl md:text-5xl font-bold mb-4">
           Real Estate Auctions Made Easy
         </h1>
-        <div className="flex flex-col items-center mt-4">
+        {/* <div className="flex flex-col items-center mt-4">
           <input
             type="text"
             placeholder="Search by City, State, Zip Code, Address or County"
@@ -24,7 +24,7 @@ const HomeBanner = () => {
           <button className="mt-4 bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600">
             Search
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
