@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { toast } from 'react-hot-toast'
 import { useState } from 'react'
 import { Skeleton } from '../components/Loader'
+import { server } from '../components/Listings/PropertyGrid'
 
 const AllProperties = () => {
 
@@ -12,12 +13,11 @@ const AllProperties = () => {
     const [loading, setLoading] = useState(false)
     const [properties, setProperties] = useState([])
 
-    const server = 'https://hamzafypbackend.onrender.com'
 
     const getAllProperties = async () => {
         try {
             setLoading(true)
-            const response = await fetch(`${server}/properties/`);
+            const response = await fetch(`${server}properties/`);
 
             if (response.ok) {
                 const data = await response.json();
@@ -33,7 +33,7 @@ const AllProperties = () => {
 
 
     const deleteProperty = (propertyId) => {
-        fetch(`${server}/delete/${propertyId}/`, {
+        fetch(`${server}delete/${propertyId}/`, {
             method: 'DELETE',
         })
             .then((response) => {
