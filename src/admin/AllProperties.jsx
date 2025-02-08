@@ -12,7 +12,7 @@ const AllProperties = () => {
     const [loading, setLoading] = useState(false)
     const [properties, setProperties] = useState([])
 
-    const server = 'https://homebidding-backend.onrender.com'
+    const server = 'https://hamzafypbackend.onrender.com'
 
     const getAllProperties = async () => {
         try {
