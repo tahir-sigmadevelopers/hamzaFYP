@@ -15,7 +15,7 @@ const properties2 = [
 
 ];
 
-export const server = 'https://homebidding-backend.onrender.com/'
+export const server = 'https://hamzafypbackend.onrender.com/'
 // export const server = 'http://localhost:8000/'  // Keep the trailing slash
 // export const server = 'http://localhost:8000/'
 
