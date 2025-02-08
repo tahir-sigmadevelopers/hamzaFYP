@@ -15,7 +15,14 @@ import EditProperty from "./admin/EditProperty"
 import About from "./components/About"
 import PricePrediction from "./components/PricePrediction"
 import PropertyBidding from "./components/PropertyBidding"
+import BiddingPage from './pages/BiddingPage'
+import ManageBidsPage from './pages/ManageBidsPage'
+import AllBidsPage from './pages/AllBidsPage'
+
 const App = () => {
+
+  // const server = 'https://homebidding-backend.onrender.com'
+  const server = 'http://localhost:8000'
   return (
     <>
       <BrowserRouter>
@@ -26,9 +33,8 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/properties" element={<Listings />} />
           <Route path="/predict-price" element={<PricePrediction />} />
-          <Route path="/bidding/:id" element={<PropertyBidding />} />
-
-
+          {/* <Route path="/bidding/:id" element={<PropertyBidding />} /> */}
+          <Route path="/property/:propertyId/bid" element={<BiddingPage />} />
           <Route path="/properties/details/:id" element={<ListingDetails />} />
           <Route path="/sign-up" element={<Signup />} />
           <Route path="/sign-in" element={<Login />} />
@@ -36,6 +42,8 @@ const App = () => {
           <Route path="/admin/add-property" element={<AddProperty />} />
           <Route path="/admin/edit-property/:id" element={<EditProperty />} />
           <Route path="/admin/properties" element={<AllProperties />} />
+          <Route path="/admin/property/:propertyId/bids" element={<ManageBidsPage />} />
+          <Route path="/admin/property/bids" element={<AllBidsPage />} />
         </Routes>
         <Footer />
       </BrowserRouter>

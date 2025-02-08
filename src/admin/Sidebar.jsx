@@ -18,19 +18,11 @@ const Sidebar = () => {
       <div className="flex flex-col h-screen p-3 shadow w-60">
         <div className="space-y-3">
           <div className="flex items-center">
-            <h2 className="text-xl font-bold text-center pl-2 pt-4">Dashboard</h2>
+            <h2 className="text-xl font-bold text-center pl-2 pt-4 pb-8">Dashboard</h2>
           </div>
           <div className="flex-1">
-            <ul className="pt-2 pb-4 space-y-1 text-sm">
-              <li className="rounded-sm">
-                <Link
-                  to="/admin/dashboard"
-                  className="flex items-center p-2 space-x-3 rounded-md"
-                >
-                  {/* <Home className='h-6 w-6' /> */}
-                  <span>Home</span>
-                </Link>
-              </li>
+            <ul className="pt-2 pb-8 space-y-1 text-sm">
+       
               <li className="rounded-sm">
                 <Link
                   to="/admin/properties"
@@ -39,7 +31,18 @@ const Sidebar = () => {
 
                   {/* <Assignment className='h-6 w-6' /> */}
 
-                  <span>Properties</span>
+                  <span className='text-xl font-semibold'>Properties</span>
+                </Link>
+              </li>
+              <li className="rounded-sm">
+                <Link
+                  to="/admin/property/bids"
+                  className="flex items-center p-2 space-x-3 rounded-md"
+                >
+
+                  {/* <Assignment className='h-6 w-6' /> */}
+
+                  <span className='ml-1 text-xl font-semibold'>Bids</span>
                 </Link>
               </li>
          

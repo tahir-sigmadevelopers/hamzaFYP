@@ -26,7 +26,7 @@ const PricePrediction = () => {
     setError(null);
 
     try {
-      const response = await axios.post(`${server}/api/predict-price/`, formData);
+      const response = await axios.post(`${server}api/predict-price/`, formData);
       setPrediction(response.data.predicted_price);
     } catch (err) {
       setError('Failed to get prediction. Please try again.');

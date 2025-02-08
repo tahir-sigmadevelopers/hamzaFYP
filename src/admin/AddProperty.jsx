@@ -3,6 +3,7 @@ import { toast } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import Sidebar from './Sidebar'
 import { Skeleton } from '../components/Loader'
+import { server } from '../components/Listings/PropertyGrid'
 
 const AddProperty = () => {
 
@@ -12,7 +13,6 @@ const AddProperty = () => {
     const [size, setSize] = useState(0)
     const [bedRooms, setBedRooms] = useState(0)
     const [bathRooms, setBathrooms] = useState(0)
-    const [predicted_price, setPredicted_price] = useState(0)
     const [actual_price, setActual_price] = useState(0)
     const [owner_name, setOwnerName] = useState("")
     const [date_listed, setDateListed] = useState(new Date(Date.now()))
@@ -32,7 +32,7 @@ const AddProperty = () => {
 
     const handleImageUpload = (e) => {
         // setImages((e.target.files[0])); // Store file objects directly
-        
+
         setImages(Array.from(e.target.files)); // Store file objects directly
         console.log("I am image upload", e.target.files[0]);
     };
@@ -50,19 +50,20 @@ const AddProperty = () => {
         data.set("size", size)
         data.set("bedrooms", bedRooms);
         data.set("bathrooms", bathRooms);
-        data.set("predicted_price", predicted_price);
         data.set("actual_price", actual_price);
         data.set("owner_name", owner_name);
         data.set("date_listed", formatDate(date_listed));
         console.log("main hoon date listed", date_listed);
         // data.append("images", images, images.name);
 
+
         for (let i = 0; i < images.length; i++) {
             data.append("images", images[i]);
         }
 
         try {
-            const response = await fetch('https://homebidding-backend.onrender.com/api/auth/properties-create/', {
+            console.log(data);
+            const response = await fetch(`${server}/api/auth/properties-create/`, {
                 method: 'POST',
                 body: data,
             });
@@ -77,7 +78,6 @@ const AddProperty = () => {
                 setBedRooms(0)
                 setBathrooms(0)
                 setActual_price(0)
-                setPredicted_price(0)
                 setImages([])
 
                 navigate("/admin/properties");
@@ -138,8 +138,9 @@ const AddProperty = () => {
                             </div>
                         </div>
                         <div>
-                            <label htmlFor="size" className="block text-sm font-medium leading-6">Size</label>
+                            <label htmlFor="size" className="block text-sm font-medium leading-6">Size (sq ft)</label>
                             <div className="mt-1">
+
                                 <input value={size} type="number" name='size' onChange={(e) => setSize(e.target.value)} autoComplete="location" required className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inappend ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inappend focus:ring-grey-600 sm:text-sm sm:leading-6 px-2" />
                             </div>
                         </div>
@@ -147,15 +148,6 @@ const AddProperty = () => {
 
 
 
-                        <div>
-                            <div className="flex items-center justify-between">
-                                <label htmlFor="Predicted_price" className="block text-sm font-medium leading-6" autoComplete="Predicted_price" >Predicted Price</label>
-                            </div>
-
-                            <div className="mt-1">
-                                <input value={predicted_price} onChange={(e) => setPredicted_price(e.target.value)} type="number" name='Predicted_price' autoComplete="Predicted_price" required className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inappend ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inappend focus:ring-text-gray-800sm:text-sm sm:leading-6 px-2" />
-                            </div>
-                        </div>
 
                         <div>
                             <div className="flex items-center justify-between">
@@ -167,10 +159,33 @@ const AddProperty = () => {
                             </div>
                         </div>
 
+                        <div>
+                            <label htmlFor="bedrooms" className="block text-sm font-medium leading-6">Bedrooms</label>
+                            <div className="mt-1">
+                                <input 
+                                    value={bedRooms} 
+                                    type="number" 
+                                    name='bedrooms' 
+                                    onChange={(e) => setBedRooms(e.target.value)} 
+                                    required 
+                                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inappend ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inappend focus:ring-grey-600 sm:text-sm sm:leading-6 px-2" 
+                                />
+                            </div>
+                        </div>
 
-
-
-
+                        <div>
+                            <label htmlFor="bathrooms" className="block text-sm font-medium leading-6">Bathrooms</label>
+                            <div className="mt-1">
+                                <input 
+                                    value={bathRooms} 
+                                    type="number" 
+                                    name='bathrooms' 
+                                    onChange={(e) => setBathrooms(e.target.value)} 
+                                    required 
+                                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inappend ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inappend focus:ring-grey-600 sm:text-sm sm:leading-6 px-2" 
+                                />
+                            </div>
+                        </div>
 
                         <div>
                             <label htmlFor="description" className="block text-sm font-medium leading-6">Description</label>

@@ -19,10 +19,11 @@ const InfoSection = () => {
           </div>
           <div className="md:w-1/3 flex justify-center mt-6 md:mt-0">
             <img
-              src="/assets/homebuyers-icon.svg" // Replace with your icon's path
+              src="/logo.png" // Replace with your icon's path
               alt="Home Buyers Illustration"
-              className="w-48 h-48"
+              className="w-40 "
             />
+
           </div>
         </div>
 

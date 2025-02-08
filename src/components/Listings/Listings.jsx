@@ -40,7 +40,7 @@ const Listings = () => {
         <div className="min-h-screen bg-gray-100">
             <Header />
             <main className="p-6">
-                <Filters />
+                {/* <Filters /> */}
                 <PropertyGrid properties={properties} />
             </main>
         </div>

@@ -1,99 +1,51 @@
+// src/components/Footer.jsx
+import React from 'react';
+import { Link } from 'react-router-dom';
+
 const Footer = () => {
-    return (
-      <footer className="text-gray-600 body-font">
-        <div className="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
-          <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
-            <a className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-              </svg>
-              <span className="ml-3 text-xl">Tailblocks</span>
-            </a>
-            <p className="mt-2 text-sm text-gray-500">
-              Air plant banjo lyft occupy retro adaptogen indego
-            </p>
-          </div>
-          <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
-            {[...Array(4)].map((_, index) => (
-              <div key={index} className="lg:w-1/4 md:w-1/2 w-full px-4">
-                <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">
-                  CATEGORIES
-                </h2>
-                <nav className="list-none mb-10">
-                  {["First Link", "Second Link", "Third Link", "Fourth Link"].map(
-                    (link, i) => (
-                      <li key={i}>
-                        <a href="#" className="text-gray-600 hover:text-gray-800">
-                          {link}
-                        </a>
-                      </li>
-                    )
-                  )}
-                </nav>
-              </div>
-            ))}
+  return (
+    <footer className="p-10 bg-gray-900 text-gray-300">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Logo and subscription */}
+        <div>
+          <h2 className="text-2xl font-bold text-white mb-4">Home Bid</h2>
+          <p>Subscribe to our newsletter for the latest updates and exclusive offers.</p>
+          <div className="flex mt-4">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="p-2 rounded-l-md text-gray-800"
+            />
+            <button className="p-2 bg-yellow-500 text-white rounded-r-md">Subscribe</button>
           </div>
         </div>
-        <div className="bg-gray-100">
-          <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
-            <p className="text-gray-500 text-sm text-center sm:text-left">
-              © 2020 Tailblocks —
-              <a
-                href="https://twitter.com/knyttneve"
-                rel="noopener noreferrer"
-                className="text-gray-600 ml-1"
-                target="_blank"
-              >
-                @knyttneve
-              </a>
-            </p>
-            <span className="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
-              {[
-                { href: "#", iconPath: "M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" },
-                {
-                  href: "#",
-                  iconPath:
-                    "M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z",
-                },
-                {
-                  href: "#",
-                  iconPath:
-                    "M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01",
-                },
-                {
-                  href: "#",
-                  iconPath:
-                    "M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z",
-                },
-              ].map((icon, index) => (
-                <a key={index} href={icon.href} className="text-gray-500 ml-3">
-                  <svg
-                    fill="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    className="w-5 h-5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d={icon.iconPath}></path>
-                  </svg>
-                </a>
-              ))}
-            </span>
+
+        {/* Links */}
+        <div className="flex flex-col space-y-2">
+          <Link to={"/"} className="text-gray-400 hover:text-gray-300">Home</Link>
+          <Link to={"/contact"} className="text-gray-400 hover:text-gray-300">Contact</Link>
+          <Link to={"/about"} className="text-gray-400 hover:text-gray-300">About</Link>
+          <Link to={"/listings"} className="text-gray-400 hover:text-gray-300">Listings</Link>
+        </div>
+
+
+        {/* Social Media */}
+        <div>
+          <h3 className="font-semibold text-white">Follow Us</h3>
+          <div className="flex  flex-col mt-2">
+            <a href="https://facebook.com" className="text-gray-400 hover:text-gray-300">Facebook</a>
+            <a href="https://instagram.com" className="text-gray-400 hover:text-gray-300">Instagram</a>
+            <a href="https://x.com" className="text-gray-400 hover:text-gray-300">Twitter</a>
+            <a href="https://linkedin.com" className="text-gray-400 hover:text-gray-300">LinkedIn</a>
           </div>
         </div>
-      </footer>
-    );
-  };
-  
-  export default Footer;
-  
+      </div>
+
+      <div className="text-center mt-8 border-t border-gray-700 pt-4">
+        <p className="text-gray-500">&copy; {new Date().getFullYear()} Home Bid. All rights reserved.</p>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

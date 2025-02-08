@@ -50,8 +50,8 @@ const ListingDetails = () => {
 
         {/* Right Section */}
         <div className="space-y-6">
-          <BidSection />
-          <GuideSection />
+          <BidSection property={property}/>
+          {/* <GuideSection /> */}
           <LocationMap />
         </div>
       </div>
