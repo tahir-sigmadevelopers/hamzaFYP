@@ -15,7 +15,7 @@ const Listings = () => {
     const getAllProperties = async () => {
         try {
             setLoading(true)
-            const response = await fetch(`${server}/properties/`);
+            const response = await fetch(`${server}properties/`);
 
             if (response.ok) {
                 const data = await response.json();
