@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { signin } from '../../features/auth/authSlice';
 import toast from 'react-hot-toast';
 
@@ -13,10 +13,18 @@ const Login = () => {
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
+    const navigate = useNavigate()
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(signin(formData));
+        const response = await dispatch(signin(formData)).unwrap();;
+
+        if (response) {
+            toast.success(`Login Successfully! Welcome ${response?.user?.username}`);
+            console.log("Response Data:", response); // Logs the entire response
+            localStorage.setItem("user", JSON.stringify(response?.user))
+            navigate("/");
+        }
 
         if (!isError) {
             toast.success(`Welcome Back ${user?.user_name}`)
@@ -89,7 +97,7 @@ const Login = () => {
                                         onChange={handleChange}
                                     />
                                 </div>
-                          
+
                                 <button
                                     type="submit"
                                     className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"

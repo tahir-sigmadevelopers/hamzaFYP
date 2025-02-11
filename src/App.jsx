@@ -21,7 +21,7 @@ import AllBidsPage from './pages/AllBidsPage'
 
 const App = () => {
 
-  const server = 'https://homebidding-backend.onrender.com'
+  // const server = 'https://homebidding-backend.onrender.com'
   // const server = 'http://localhost:8000'
   return (
     <>

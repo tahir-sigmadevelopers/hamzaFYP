@@ -18,15 +18,23 @@ const Signup = () => {
 
     const navigate = useNavigate()
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(signup(formData));
-        toast.success(`Sign Up Successfully`)
-        navigate("/")
-
-
+        
+        try {
+            const response = await dispatch(signup(formData)).unwrap();  // 👈 Use unwrap() to get the response
+            
+            if (response) {
+                toast.success(`Sign Up Successfully! Welcome ${response?.user?.username}`);
+                console.log("Response Data:", response); // Logs the entire response
+                navigate("/");
+            }
+        } catch (error) {
+            console.error("Signup failed:", error);
+            toast.error("Signup failed. Please try again.");
+        }
     };
-
+    
     return (
         <>
             <section className="bg-gray-50 dark:bg-gray-900">

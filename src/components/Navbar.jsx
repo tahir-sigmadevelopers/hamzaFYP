@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import SearchBar from "./Listings/SearchBar";
 
 const Navbar = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Get user from localStorage
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
   return (
     <nav className="bg-white shadow-md py-4 px-6 flex justify-between items-center">
       <div className="flex items-center">
-        <Link to={"/"}><img src="/logo.png" alt="Logo" className="h-8 mr-4" /></Link>
+        <Link to={"/"}>
+          <img src="/logo.png" alt="Logo" className="h-8 mr-4" />
+        </Link>
         <Link to={"/"}>
           <h1 className="text-xl font-semibold">HomeBid</h1>
         </Link>
@@ -22,20 +33,33 @@ const Navbar = () => {
           Contact
         </Link>
         <Link to="/predict-price" className="text-gray-700 hover:text-blue-600">
-          Price Prediction 
+          Price Prediction
         </Link>
         <div>
-          <Link to="/sign-in" className="text-blue-600 font-semibold">
-            Sign In
-          </Link>{" "}
-          |{" "}
-          <Link to="/sign-up" className="text-blue-600 font-semibold">
-            Sign Up
-          </Link>{" "}
-          |{" "}
-          <Link to="/admin/dashboard" className="text-blue-600 font-semibold">
-            Admin Dashboard
-          </Link>
+          {/* Conditionally show Login/Signup if user is NOT logged in */}
+          {!user ? (
+            <>
+              <Link to="/sign-in" className="text-blue-600 font-semibold">
+                Sign In
+              </Link>{" "}
+              |{" "}
+              <Link to="/sign-up" className="text-blue-600 font-semibold">
+                Sign Up
+              </Link>
+            </>
+          ) : (
+            <>
+              {/* Conditionally show Admin Dashboard if the user is admin */}
+              {user?.email === "hamzabhutta545@gmail.com" && (
+                <>
+                  {" | "}
+                  <Link to="/admin/dashboard" className="text-blue-600 font-semibold">
+                    Admin Dashboard
+                  </Link>
+                </>
+              )}
+            </>
+          )}
         </div>
       </div>
     </nav>
