@@ -8,6 +8,7 @@ const BidSection = ({ property }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [biddingClosed, setBiddingClosed] = useState(false);
+  const [closedReason, setClosedReason] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,6 +27,7 @@ const BidSection = ({ property }) => {
     try {
       const response = await axios.get(`${server}api/auth/property/${property.id}/bids/`);
       setBiddingClosed(response.data.bidding_closed);
+      setClosedReason(response.data.closed_reason);
     } catch (error) {
       console.error('Error checking bid status:', error);
     } finally {
@@ -57,8 +59,16 @@ const BidSection = ({ property }) => {
       <div className="bg-white p-6 rounded-lg shadow-md">
         <div className="text-center">
           <div className="bg-red-100 text-red-800 px-4 py-3 rounded-md mb-4">
-            <h3 className="text-xl font-semibold">Bidding is Closed</h3>
-            <p className="text-sm mt-2">This property has been sold</p>
+            <h3 className="text-xl font-semibold">
+              {closedReason === 'time_expired' 
+                ? 'Bidding Time is Over'
+                : 'Bidding is Closed'}
+            </h3>
+            <p className="text-sm mt-2">
+              {closedReason === 'time_expired'
+                ? 'The bidding period for this property has expired'
+                : 'This property has been sold'}
+            </p>
           </div>
           <Link 
             to="/properties" 

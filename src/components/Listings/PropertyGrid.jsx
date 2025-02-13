@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
-export const server = 'https://hamzafypbackend.onrender.com/'
-// export const server = 'http://localhost:8000/'  // Keep the trailing slash
+// export const server = 'https://hamzafypbackend.onrender.com/'
+export const server = 'http://localhost:8000/'  // Keep the trailing slash
 
 const PropertyGrid = ({ properties }) => {
   // Helper function to get correct image URL
