@@ -223,7 +223,7 @@ const AddProperty = () => {
 
                         <div>
                             {
-                                !"createLoading" ? <Skeleton length={1} /> : <button type="submit" className="flex w-full justify-center rounded-md bg-yellow-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offappend-2  mt-4">Create</button>
+                                !"createLoading" ? <Skeleton length={1} /> : <button type="submit" className="flex w-full justify-center rounded-md  px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offappend-2  mt-4 bg-green-600 hover:bg-green-700">Create</button>
                             }
                         </div>
                     </form>

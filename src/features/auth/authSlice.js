@@ -13,7 +13,8 @@ export const signin = createAsyncThunk(
       return response.data;
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.error || 'An error occurred during sign in'
+        error.response?.data?.non_field_errors?.[0] || 
+        'Invalid email or password'
       );
     }
   }

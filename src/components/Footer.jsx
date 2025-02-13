@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <footer className="p-10 bg-gray-900 text-gray-300">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-32 pl-40">
         {/* Logo and subscription */}
-        <div>
+        {/* <div>
           <h2 className="text-2xl font-bold text-white mb-4">Home Bid</h2>
           <p>Subscribe to our newsletter for the latest updates and exclusive offers.</p>
           <div className="flex mt-4">
@@ -18,7 +18,7 @@ const Footer = () => {
             />
             <button className="p-2 bg-yellow-500 text-white rounded-r-md">Subscribe</button>
           </div>
-        </div>
+        </div> */}
 
         {/* Links */}
         <div className="flex flex-col space-y-2">

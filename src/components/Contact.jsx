@@ -137,7 +137,7 @@ const Contact = () => {
                         <button 
                             type="submit"
                             disabled={loading}
-                            className={`text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            className={`text-white bg-green-600 hover:bg-green-700 border-0 py-2 px-6 focus:outline-none  rounded text-lg ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                             {loading ? 'Sending...' : 'Submit'}
                         </button>

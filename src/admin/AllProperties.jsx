@@ -62,7 +62,7 @@ const AllProperties = () => {
                 <div className="container px-5 py-6 mx-auto">
                     <div className="flex flex-col text-center w-full mb-8">
                         <h1 className="sm:text-4xl text-3xl font-medium title-font mb-2">All Properties</h1>
-                        <Link to={"/admin/add-property"} className='mt-4 bg-green-800 hover:bg-green-900 text-white w-52 py-2 rounded-sm'>Add New Property</Link>
+                        <Link to={"/admin/add-property"} className='mt-4 bg-green-600 hover:bg-green-700  text-white w-52 py-2 rounded-sm'>Add New Property</Link>
                     </div>
                     <div className=" w-full mx-auto overflow-auto">
                         <table className="table-auto w-full text-left whitespace-no-wrap border-collapse border border-gray-300">

@@ -31,7 +31,7 @@ const About = () => {
 
     return (
         <>
-            <div className="w-full lg:h-screen h-full m-auto flex items-center justify-cetner py-20 bg-gray-50 dark:bg-gray-900">
+            <div className="w-full  flex items-center justify-cetner py-20 bg-gray-50 dark:bg-gray-900">
                 <div className="w-full h-full flex flex-col justify-center items-center sm:px-4 px-2">
                     <div className="lg:w-[90%] w-full mx-auto flex flex-col lg:gap-6 lg:flex-row items-center justify-center ">
                         <div className="relative">
@@ -53,22 +53,22 @@ const About = () => {
                             <p className="md:text-3xl text-2xl text-center text-gray-800 dark:text-gray-200 font-bold my-5">We are
                                 HomeBid
                             </p>
-                            <p className="md:text-xl sm:text-lg text-base mt-2 text-justify sm:px-2 dark:text-gray-300">Welcome to HomeBid: Predictive Prices and Bidding for Real Estate, a trusted platform for real estate price prediction and bidding. We use AI-driven analytics to provide accurate property valuations, ensuring fair and transparent transactions for buyers and sellers.</p>
+                            <p className="md:text-xl sm:text-lg text-base mt-2 text-justify sm:px-2 dark:text-gray-300"><span className='font-semibold underline'>Welcome to HomeBid: </span>Predictive Prices and Bidding for Real Estate, a trusted platform for real estate price prediction and bidding. We use AI-driven analytics to provide accurate property valuations, ensuring fair and transparent transactions for buyers and sellers.</p>
 
-                           <div className="md:text-xl sm:text-lg text-base mt-2 text-justify sm:px-2 dark:text-gray-300">
-                           <h3 className='font-bold my-4'>What We Offer:</h3>
-                            <ul className='py-4'>
-                                <li className='py-1'>✅AI-Powered Price Prediction for smarter investment decisions</li>
-                                <li className='py-1'>✅Real Estate Bidding System for competitive property deals</li>
-                                <li className='py-1'>✅Buy & Sell Properties with ease and confidence</li>
-                                <li className='py-1'>✅Market Insights & Analysis to stay ahead in real estate</li>
-                                <li className='text-lg'>✅Secure & Transparent Transactions for a hassle-free experience</li>
-                            </ul>
+                            <div className="md:text-xl sm:text-lg text-base mt-2 text-justify sm:px-2 dark:text-gray-300">
+                                <h3 className='font-bold my-4'>What We Offer:</h3>
+                                <ul className='py-4'>
+                                    <li className='py-1'>✅AI-Powered Price Prediction for smarter investment decisions</li>
+                                    <li className='py-1'>✅Real Estate Bidding System for competitive property deals</li>
+                                    <li className='py-1'>✅Buy & Sell Properties with ease and confidence</li>
+                                    <li className='py-1'>✅Market Insights & Analysis to stay ahead in real estate</li>
+                                    <li className='text-lg'>✅Secure & Transparent Transactions for a hassle-free experience</li>
+                                </ul>
 
-                            <p>Join HomeBid today and make real estate buying, selling, and bidding simpler, smarter, and more profitable!</p>
+                                <p>Join HomeBid today and make real estate buying, selling, and bidding simpler, smarter, and more profitable!</p>
 
-                           </div>
-                            <Link to={"/contact"} className="lg:mt-10 mt-6 lg:px-6 px-4 lg:py-3 py-2 bg-green-600 rounded-lg lg:text-xl text-lg text-white font-semibold">Contact Now</Link>
+                            </div>
+                            <Link to={"/contact"} className="lg:mt-10 mt-6 lg:px-6 px-4 lg:py-3 py-2 bg-green-600 hover:bg-green-700 rounded-lg lg:text-xl text-lg text-white font-semibold">Contact Now</Link>
 
                         </div>
 
@@ -76,7 +76,7 @@ const About = () => {
                 </div>
             </div>
 
-            <div className="py-48 bg-white dark:bg-gray-800">
+            <div className="py-32 bg-white dark:bg-gray-800">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-20">
                         <h2 className="text-4xl font-bold text-gray-800 dark:text-white mb-4">
