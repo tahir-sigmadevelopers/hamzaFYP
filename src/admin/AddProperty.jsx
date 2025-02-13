@@ -63,7 +63,7 @@ const AddProperty = () => {
 
         try {
             console.log(data);
-            const response = await fetch(`${server}/api/auth/properties-create/`, {
+            const response = await fetch(`${server}api/auth/properties-create/`, {
                 method: 'POST',
                 body: data,
             });
