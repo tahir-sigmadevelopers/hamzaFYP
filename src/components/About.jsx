@@ -53,11 +53,22 @@ const About = () => {
                             <p className="md:text-3xl text-2xl text-center text-gray-800 dark:text-gray-200 font-bold my-5">We are
                                 HomeBid
                             </p>
-                            <p className="md:text-xl sm:text-lg text-base mt-2 text-justify sm:px-2 dark:text-gray-300">At HomeBid,
-                            we offers a wealth of information to assist each buyer. Our customer service team is available seven days a week to answer questions. Create your free account today and gain access to exclusive auction inventory.
-                            </p>
+                            <p className="md:text-xl sm:text-lg text-base mt-2 text-justify sm:px-2 dark:text-gray-300">Welcome to HomeBid: Predictive Prices and Bidding for Real Estate, a trusted platform for real estate price prediction and bidding. We use AI-driven analytics to provide accurate property valuations, ensuring fair and transparent transactions for buyers and sellers.</p>
 
-                            <Link to={"/"} className="lg:mt-10 mt-6 lg:px-6 px-4 lg:py-4 py-2 bg-green-600 rounded-sm lg:text-xl text-lg text-white font-semibold">Read More</Link>
+                           <div className="md:text-xl sm:text-lg text-base mt-2 text-justify sm:px-2 dark:text-gray-300">
+                           <h3 className='font-bold my-4'>What We Offer:</h3>
+                            <ul className='py-4'>
+                                <li className='py-1'>✅AI-Powered Price Prediction for smarter investment decisions</li>
+                                <li className='py-1'>✅Real Estate Bidding System for competitive property deals</li>
+                                <li className='py-1'>✅Buy & Sell Properties with ease and confidence</li>
+                                <li className='py-1'>✅Market Insights & Analysis to stay ahead in real estate</li>
+                                <li className='text-lg'>✅Secure & Transparent Transactions for a hassle-free experience</li>
+                            </ul>
+
+                            <p>Join HomeBid today and make real estate buying, selling, and bidding simpler, smarter, and more profitable!</p>
+
+                           </div>
+                            <Link to={"/contact"} className="lg:mt-10 mt-6 lg:px-6 px-4 lg:py-3 py-2 bg-green-600 rounded-lg lg:text-xl text-lg text-white font-semibold">Contact Now</Link>
 
                         </div>
 
@@ -65,7 +76,7 @@ const About = () => {
                 </div>
             </div>
 
-            <div className="py-24 bg-white dark:bg-gray-800">
+            <div className="py-48 bg-white dark:bg-gray-800">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-20">
                         <h2 className="text-4xl font-bold text-gray-800 dark:text-white mb-4">
@@ -117,7 +128,7 @@ const About = () => {
                                             className="text-blue-600 hover:text-blue-800 transition-colors"
                                         >
                                             <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                                             </svg>
                                         </a>
                                         <a
@@ -125,7 +136,7 @@ const About = () => {
                                             className="text-gray-600 hover:text-gray-800 transition-colors"
                                         >
                                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                             </svg>
                                         </a>
                                     </div>

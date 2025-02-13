@@ -65,8 +65,10 @@ const Navbar = () => {
           ) : (
             <div className="flex items-center space-x-4">
               <span className="text-gray-600">
-                Welcome, {user.username}
-              </span>
+                {/* make first letter capitalize of user  */}
+
+                Welcome, {user.username.charAt(0).toUpperCase() + user.username.slice(1)}
+                </span>
               {user?.email === "hamzabhutta545@gmail.com" && (
                 <Link 
                   to="/admin/dashboard" 
