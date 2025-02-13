@@ -1,72 +1,105 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { server } from './PropertyGrid';
+import { toast } from 'react-hot-toast';
 
 const BidSection = ({ property }) => {
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [biddingClosed, setBiddingClosed] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
+    
+    // Check bidding status
+    if (property?.id) {
+      checkBiddingStatus();
+    }
+  }, [property?.id]);
+
+  const checkBiddingStatus = async () => {
+    try {
+      const response = await axios.get(`${server}api/auth/property/${property.id}/bids/`);
+      setBiddingClosed(response.data.bidding_closed);
+    } catch (error) {
+      console.error('Error checking bid status:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLoginRedirect = () => {
+    navigate('/login');
+  };
 
   const handleBidClick = () => {
     navigate(`/property/${property.id}/bid`);
   };
 
-  return (
-    <div className="bg-white shadow rounded-md p-6">
-      <h2 className="text-lg font-bold mb-4 text-green-700">Bidding is Open</h2>
-      <p className="text-gray-700 mb-4">
-        <span className="font-bold">Minimum Opening Bid:</span> Rs. {property?.actual_price * 1.5}
-      </p>
-      <div className="flex flex-col space-y-4">
-        <button 
-          onClick={handleBidClick}
-          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md"
-        >
-          Give Offer
-        </button>
-        {/* <p className="text-gray-500 text-sm">
-          <strong>Bidding Opens:</strong> 20th Jan 2025 12:00
-        </p>
-        <p className="text-gray-500 text-sm">
-          <strong>Scheduled End Date:</strong> 22nd Jan 2025 11:02
-        </p> */}
-      </div>
-
-      <form className="mt-6 space-y-4">
-        <h3 className="text-lg font-bold">Make an Enquiry</h3>
-        <input
-          type="text"
-          placeholder="Title"
-          className="border rounded-md px-4 py-2 w-full"
-        />
-        <div className="flex space-x-4">
-          <input
-            type="text"
-            placeholder="First Name"
-            className="border rounded-md px-4 py-2 w-full"
-          />
-          <input
-            type="text"
-            placeholder="Last Name"
-            className="border rounded-md px-4 py-2 w-full"
-          />
+  if (loading) {
+    return (
+      <div className="bg-white p-6 rounded-lg shadow-md">
+        <div className="animate-pulse">
+          <div className="h-4 bg-gray-200 rounded w-3/4 mb-4"></div>
+          <div className="h-8 bg-gray-200 rounded"></div>
         </div>
-        <input
-          type="email"
-          placeholder="Email Address"
-          className="border rounded-md px-4 py-2 w-full"
-        />
-        <input
-          type="text"
-          placeholder="Telephone"
-          className="border rounded-md px-4 py-2 w-full"
-        />
-        <textarea
-          placeholder="Enquiry"
-          className="border rounded-md px-4 py-2 w-full h-20"
-        ></textarea>
-        <button className="bg-green-500 text-white px-4 py-2 rounded-md w-full">
-          Submit
+      </div>
+    );
+  }
+
+  if (biddingClosed) {
+    return (
+      <div className="bg-white p-6 rounded-lg shadow-md">
+        <div className="text-center">
+          <div className="bg-red-100 text-red-800 px-4 py-3 rounded-md mb-4">
+            <h3 className="text-xl font-semibold">Bidding is Closed</h3>
+            <p className="text-sm mt-2">This property has been sold</p>
+          </div>
+          <Link 
+            to="/properties" 
+            className="text-blue-600 hover:text-blue-800 text-sm"
+          >
+            Browse Other Properties
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="bg-white p-6 rounded-lg shadow-md">
+        <h3 className="text-xl font-semibold mb-4">Login to Place Bid</h3>
+        <button 
+          onClick={handleLoginRedirect}
+          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition"
+        >
+          Login to Bid
         </button>
-      </form>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-md">
+      <h3 className="text-xl font-semibold mb-4">Bid on this Property</h3>
+      <button
+        onClick={handleBidClick}
+        className="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition"
+      >
+        Place Bid
+      </button>
     </div>
   );
 };
 
 export default BidSection;
+
+
+
+

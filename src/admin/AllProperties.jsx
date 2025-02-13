@@ -33,7 +33,7 @@ const AllProperties = () => {
 
 
     const deleteProperty = (propertyId) => {
-        fetch(`${server}delete/${propertyId}/`, {
+        fetch(`${server}api/auth/property/delete/${propertyId}/`, {
             method: 'DELETE',
         })
             .then((response) => {
@@ -73,7 +73,7 @@ const AllProperties = () => {
                                     <th className="px-1 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Bathrooms</th>
                                     <th className="px-1 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Bedrooms</th>
                                     <th className="px-4 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Size</th>
-                                    <th className="px-4 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Predicted Price</th>
+                                    {/* <th className="px-4 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Predicted Price</th> */}
                                     <th className="px-4 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Owner Name</th>
                                     <th className="px-4 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Date Listed</th>
                                     <th className="px-4 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Edit</th>
@@ -93,7 +93,7 @@ const AllProperties = () => {
                                                     <td className="px-1 py-3 text-center border-b border-gray-300">{property.bathrooms}</td>
                                                     <td className="px-1 py-3 text-center border-b border-gray-300">{property.bedrooms}</td>
                                                     <td className="px-4 py-3 border-b border-gray-300">{property.size}</td>
-                                                    <td className="px-4 py-3 border-b border-gray-300">{property.predicted_price}</td>
+                                                    {/* <td className="px-4 py-3 border-b border-gray-300">{property.predicted_price}</td> */}
                                                     <td className="px-4 py-3 border-b border-gray-300">{property.owner_name}</td>
                                                     <td className="px-4 py-3 border-b border-gray-300">{property.date_listed}</td>
                                                     <td className="px-4 py-3 text-lg border-b border-gray-300">

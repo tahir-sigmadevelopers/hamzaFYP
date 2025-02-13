@@ -14,8 +14,15 @@ const BiddingPage = () => {
     all_bids: []
   });
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
+    // Check for logged in user
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      setUser(JSON.parse(userData));
+    }
+
     const fetchData = async () => {
       try {
         // Get property details
@@ -43,6 +50,11 @@ const BiddingPage = () => {
   const handleBidSubmit = async (e) => {
     e.preventDefault();
 
+    if (!user) {
+      toast.error('Please login to place a bid');
+      return;
+    }
+
     if (!bidAmount) {
       toast.error('Please enter a bid amount');
       return;
@@ -67,10 +79,10 @@ const BiddingPage = () => {
         `${server}api/auth/bids/`,
         {
           property: propertyId,
-          amount: amount
+          amount: amount,
+          email: user.email
         }
       );
-
 
       // Refresh bids after successful submission
       const bidsResponse = await axios.get(`${server}api/auth/property/${propertyId}/bids/`);
@@ -155,8 +167,9 @@ const BiddingPage = () => {
               <button
                 type="submit"
                 className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-md transition duration-200"
+                disabled={!user}
               >
-                Place Bid
+                {user ? 'Place Bid' : 'Login to Bid'}
               </button>
             </form>
           </div>

@@ -26,12 +26,12 @@ const Signup = () => {
             
             if (response) {
                 toast.success(`Sign Up Successfully! Welcome ${response?.user?.username}`);
-                console.log("Response Data:", response); // Logs the entire response
+                localStorage.setItem("user", JSON.stringify(response?.user));
                 navigate("/");
             }
         } catch (error) {
             console.error("Signup failed:", error);
-            toast.error("Signup failed. Please try again.");
+            toast.error(error.message || "Signup failed. Please try again.");
         }
     };
     

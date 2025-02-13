@@ -9,36 +9,40 @@ import toast from "react-hot-toast";
 import { server } from "./PropertyGrid";
 
 const ListingDetails = () => {
-
-  const [property, setProperty] = useState({})
-
-
-  const params = useParams()
-
+  const [property, setProperty] = useState({});
+  const [loading, setLoading] = useState(true);
+  const params = useParams();
   const { id } = params;
+
   const getPropertyDetails = async () => {
     try {
-      const response = await fetch(`${server}property/edit/${id}/`);
-      let data = await response.json()
-
-      console.log(data);
-      setProperty(data)
-
+      setLoading(true);
+      const response = await fetch(`${server}api/auth/property/${id}/`);
       if (!response.ok) {
-        toast.error('Failed to fetch property details');
-        return;
+        throw new Error('Failed to fetch property details');
       }
-
-
+      
+      const data = await response.json();
+      setProperty(data);
     } catch (error) {
-      toast.error('An error occurred', error);
+      toast.error(error.message || 'An error occurred');
+    } finally {
+      setLoading(false);
     }
-  }
-
+  };
 
   useEffect(() => {
-    getPropertyDetails()
-  }, [id])
+    getPropertyDetails();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto p-6 bg-gray-100">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -50,7 +54,7 @@ const ListingDetails = () => {
 
         {/* Right Section */}
         <div className="space-y-6">
-          <BidSection property={property}/>
+          <BidSection property={property} />
           {/* <GuideSection /> */}
           <LocationMap />
         </div>

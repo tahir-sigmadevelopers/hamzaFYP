@@ -13,7 +13,7 @@ const EditProperty = () => {
     const [size, setSize] = useState(0)
     const [bedRooms, setBedRooms] = useState(0)
     const [bathRooms, setBathrooms] = useState(0)
-    const [predicted_price, setPredicted_price] = useState(0)
+    // const [predicted_price, setPredicted_price] = useState(0)
     const [actual_price, setActual_price] = useState(0)
     const [owner_name, setOwnerName] = useState("")
     const [date_listed, setDateListed] = useState(new Date(Date.now()))
@@ -46,7 +46,7 @@ const EditProperty = () => {
         data.set("size", size)
         data.set("bedrooms", bedRooms);
         data.set("bathrooms", bathRooms);
-        data.set("predicted_price", predicted_price);
+        // data.set("predicted_price", predicted_price);
         data.set("actual_price", actual_price);
         data.set("owner_name", owner_name);
         data.set("date_listed", formatDate(date_listed));
@@ -101,7 +101,7 @@ const EditProperty = () => {
             setSize(data?.size)
             setBedRooms(data?.bedrooms)
             setBathrooms(data?.bathrooms)
-            setPredicted_price(data?.predicted_price)
+            // setPredicted_price(data?.predicted_price)
             // setDateListed(data?.date_listed.toISOString())
 
 
@@ -166,7 +166,7 @@ const EditProperty = () => {
 
 
 
-
+{/* 
                         <div>
                             <div className="flex items-center justify-between">
                                 <label htmlFor="Predicted_price" className="block text-sm font-medium leading-6" autoComplete="Predicted_price" >Predicted Price</label>
@@ -175,7 +175,7 @@ const EditProperty = () => {
                             <div className="mt-1">
                                 <input value={predicted_price} onChange={(e) => setPredicted_price(e.target.value)} type="number" name='Predicted_price' autoComplete="Predicted_price" required className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inappend ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inappend focus:ring-text-gray-800sm:text-sm sm:leading-6 px-2" />
                             </div>
-                        </div>
+                        </div> */}
 
                         <div>
                             <div className="flex items-center justify-between">

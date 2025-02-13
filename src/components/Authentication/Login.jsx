@@ -7,27 +7,25 @@ import toast from 'react-hot-toast';
 const Login = () => {
     const [formData, setFormData] = useState({ username: '', email: '', password: '' });
     const dispatch = useDispatch();
-    const { isLoading, isError, errorMessage, user } = useSelector((state) => state.auth);
-
+    const navigate = useNavigate();
+    const { isLoading, isError, errorMessage } = useSelector((state) => state.auth);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await dispatch(signin(formData)).unwrap();;
-
-        if (response) {
-            toast.success(`Login Successfully! Welcome ${response?.user?.username}`);
-            console.log("Response Data:", response); // Logs the entire response
-            localStorage.setItem("user", JSON.stringify(response?.user))
-            navigate("/");
-        }
-
-        if (!isError) {
-            toast.success(`Welcome Back ${user?.user_name}`)
+        try {
+            const response = await dispatch(signin(formData)).unwrap();
+            if (response) {
+                toast.success(`Login Successfully! Welcome ${response?.user?.username}`);
+                localStorage.setItem("user", JSON.stringify(response?.user));
+                navigate("/");
+            }
+        } catch (error) {
+            console.error("Login failed:", error);
+            toast.error(error.message || "Login failed. Please try again.");
         }
     };
     return (
@@ -111,7 +109,7 @@ const Login = () => {
                                     </div>
                                 )}
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                    Don’t have an account yet?{" "}
+                                    Don't have an account yet?{" "}
                                     <Link
                                         to="/sign-up"
                                         className="font-medium text-primary-600 hover:underline dark:text-primary-500"

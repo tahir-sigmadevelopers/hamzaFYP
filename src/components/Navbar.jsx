@@ -1,16 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../features/auth/authSlice';  // You'll need to create this action
 
 const Navbar = () => {
-  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);  // Get user from Redux state
 
-  useEffect(() => {
-    // Get user from localStorage
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+  const handleLogout = () => {
+    // Dispatch logout action
+    dispatch(logout());
+    // Clear local storage
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    // Show success message
+    toast.success("Logged out successfully");
+    // Redirect to home page
+    navigate("/");
+  };
 
   return (
     <nav className="bg-white shadow-md py-4 px-6 flex justify-between items-center">
@@ -35,30 +44,44 @@ const Navbar = () => {
         <Link to="/predict-price" className="text-gray-700 hover:text-blue-600">
           Price Prediction
         </Link>
-        <div>
-          {/* Conditionally show Login/Signup if user is NOT logged in */}
+        {user && (
+          <Link 
+            to="/my-bids" 
+            className="text-gray-700 hover:text-blue-600"
+          >
+            My Bids
+          </Link>
+        )}
+        <div className="flex items-center space-x-4">
           {!user ? (
-            <>
+            <div className="space-x-4">
               <Link to="/sign-in" className="text-blue-600 font-semibold">
                 Sign In
-              </Link>{" "}
-              |{" "}
+              </Link>
               <Link to="/sign-up" className="text-blue-600 font-semibold">
                 Sign Up
               </Link>
-            </>
+            </div>
           ) : (
-            <>
-              {/* Conditionally show Admin Dashboard if the user is admin */}
+            <div className="flex items-center space-x-4">
+              <span className="text-gray-600">
+                Welcome, {user.username}
+              </span>
               {user?.email === "hamzabhutta545@gmail.com" && (
-                <>
-                  {" | "}
-                  <Link to="/admin/dashboard" className="text-blue-600 font-semibold">
-                    Admin Dashboard
-                  </Link>
-                </>
+                <Link 
+                  to="/admin/dashboard" 
+                  className="text-blue-600 font-semibold hover:text-blue-800"
+                >
+                  Admin Dashboard
+                </Link>
               )}
-            </>
+              <button
+                onClick={handleLogout}
+                className="text-red-600 hover:text-red-800 font-semibold"
+              >
+                Logout
+              </button>
+            </div>
           )}
         </div>
       </div>
