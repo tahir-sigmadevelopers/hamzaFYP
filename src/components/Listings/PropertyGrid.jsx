@@ -6,7 +6,7 @@ export const server = 'https://hamzafypbackend.onrender.com/'
 const PropertyGrid = ({ properties }) => {
   // Helper function to get correct image URL
   const getImageUrl = (imagePath) => {
-    if (!imagePath) return '/placeholder-property.webp'; // Add a placeholder image in your public folder
+    if (!imagePath) return '/hamza-1'; // Add a placeholder image in your public folder
     
     // If the image path already includes the server URL, return as is
     if (imagePath.startsWith('http')) {
