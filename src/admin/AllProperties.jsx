@@ -68,6 +68,7 @@ const AllProperties = () => {
                         <table className="table-auto w-full text-left whitespace-no-wrap border-collapse border border-gray-300">
                             <thead>
                                 <tr>
+                                    <th className="px-4 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Property ID</th>
                                     <th className="px-4 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Address</th>
                                     <th className="px-4 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300 rounded-tl rounded-bl">Location</th>
                                     <th className="px-1 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Bathrooms</th>
@@ -88,6 +89,7 @@ const AllProperties = () => {
                                         {
                                             properties && properties.map((property) => (
                                                 <tr key={property?.id}>
+                                                    <td className="px-3 py-3 border-b border-gray-300">{property.id}</td>
                                                     <td className="px-3 py-3 border-b border-gray-300">{property.address}</td>
                                                     <td className="px-4 py-3 border-b border-gray-300">{property.location}</td>
                                                     <td className="px-1 py-3 text-center border-b border-gray-300">{property.bathrooms}</td>

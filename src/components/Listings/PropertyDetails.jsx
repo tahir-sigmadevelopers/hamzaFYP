@@ -10,7 +10,7 @@ const PropertyDetails = ({ property }) => {
         <div className="space-y-2">
           <h3 className="text-gray-500 font-medium">Asking Price</h3>
           <p className="text-teal-600 text-2xl font-bold">
-            Rs. {property?.actual_price * 2}
+            Rs. {property?.actual_price }
           </p>
         </div>
 
@@ -18,7 +18,7 @@ const PropertyDetails = ({ property }) => {
         <div className="space-y-2">
           <h3 className="text-gray-500 font-medium">Offers Over</h3>
           <p className="text-teal-600 text-2xl font-bold">
-            Rs. {(property?.actual_price * 1.5)?.toLocaleString()}
+            Rs. {(property?.actual_price * 0.97)?.toLocaleString()}
           </p>
         </div>
 

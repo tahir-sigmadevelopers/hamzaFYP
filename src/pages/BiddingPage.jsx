@@ -97,6 +97,9 @@ const BiddingPage = () => {
     }
   };
 
+
+
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -116,7 +119,7 @@ const BiddingPage = () => {
               <p className="text-gray-600 mt-2">{property?.location}</p>
               <div className="mt-4 space-y-2">
                 <p className="text-gray-700">
-                  <span className="font-semibold">Size:</span> {property?.size}
+                  <span className="font-semibold">Size:</span> {property?.size} (Sq. ft)
                 </p>
                 <p className="text-gray-700">
                   <span className="font-semibold">Bedrooms:</span> {property?.bedrooms}
@@ -149,7 +152,7 @@ const BiddingPage = () => {
                   onChange={(e) => setBidAmount(e.target.value)}
                   className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                   placeholder="Enter your bid amount"
-                  min={property?.actual_price * 1.5}
+                  min={property?.actual_price * 97}
                   step="1000"
                   required
                 />
@@ -158,7 +161,7 @@ const BiddingPage = () => {
               <div className="bg-gray-50 p-4 rounded-md">
                 <h3 className="font-semibold mb-2">Bidding Rules:</h3>
                 <ul className="list-disc list-inside text-gray-600 space-y-1 text-sm">
-                  <li>Minimum bid: Rs. {(property?.actual_price * 1.5).toLocaleString()}</li>
+                  <li>Minimum bid: Rs. {(property?.actual_price * 0.97)}</li>
                   <li>Must be higher than current highest bid</li>
                   <li>All bids are final</li>
                 </ul>
@@ -182,8 +185,8 @@ const BiddingPage = () => {
                 <div>
                   <p className="text-gray-600">Highest Bid</p>
                   <p className="text-xl font-bold text-green-600">
-                    {bidsData.highest_bid 
-                      ? `Rs. ${bidsData.highest_bid.amount.toLocaleString()}` 
+                    {bidsData.highest_bid
+                      ? `Rs. ${bidsData.highest_bid.amount.toLocaleString()}`
                       : 'No bids yet'}
                   </p>
                 </div>
@@ -197,8 +200,8 @@ const BiddingPage = () => {
             <h2 className="text-xl font-semibold mb-4">Bid History</h2>
             <div className="space-y-3 max-h-[400px] overflow-y-auto">
               {bidsData.all_bids?.map((bid, index) => (
-                <div 
-                  key={bid.id || index} 
+                <div
+                  key={bid.id || index}
                   className="flex justify-between items-center p-3 bg-gray-50 rounded-md"
                 >
                   <div>

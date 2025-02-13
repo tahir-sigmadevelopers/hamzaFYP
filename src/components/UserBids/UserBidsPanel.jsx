@@ -102,7 +102,7 @@ const UserBidsPanel = () => {
                     <tr key={bid.id}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <Link 
-                          to={`/property/${bid.property}`}
+                          to={`/properties/details/${bid.property}`}
                           className="text-blue-600 hover:text-blue-800"
                         >
                           {bid.property_address}
