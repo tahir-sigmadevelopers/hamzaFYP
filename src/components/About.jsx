@@ -5,7 +5,7 @@ const About = () => {
     const teamMembers = [
         {
             name: "Hamza Bhutta",
-            role: "Founder & CEO",
+            role: "Founder & CEO ",
             image: "/team/hamza.jpg", // Add your image path
             description: "Leading the vision of HomeBid with over 5 years of real estate experience.",
             linkedin: "https://linkedin.com/in/hamzabhutta",
@@ -17,7 +17,7 @@ const About = () => {
             image: "/team/rehman.jpg", // Add your image path
             description: "Managing day-to-day operations and ensuring smooth property transactions.",
             linkedin: "https://linkedin.com/in/rehman-ahmed",
-            email: "rehmanahmed123@gmail.com"
+            email: "rehman.ahmed.irfan@gmail.com"
         },
         {
             name: "Muhammad Tahir",
