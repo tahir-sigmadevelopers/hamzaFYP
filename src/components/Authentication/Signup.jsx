@@ -3,17 +3,34 @@ import { Link, useNavigate } from 'react-router-dom'
 import { signup } from '../../features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
+import { HiEye, HiEyeOff } from 'react-icons/hi';
 
 const Signup = () => {
 
-    const [formData, setFormData] = useState({ username: '', email: '', password: '' });
+    const [formData, setFormData] = useState({ username: '', email: '', password: '', confirmPassword: '' });
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const dispatch = useDispatch();
     const { isLoading, isError, errorMessage } = useSelector((state) => state.auth);
 
     const handleChange = (e) => {
-        console.log(formData);
+        if (e.target.name === 'username') {
+            // Allow spaces and proper capitalization for names
+            setFormData({ 
+                ...formData, 
+                [e.target.name]: e.target.value.replace(/[^a-zA-Z\s]/g, '') // Only allow letters and spaces
+            });
+        } else {
+            setFormData({ ...formData, [e.target.name]: e.target.value });
+        }
+    };
 
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+    const togglePasswordVisibility = (field) => {
+        if (field === 'password') {
+            setShowPassword(!showPassword);
+        } else {
+            setShowConfirmPassword(!showConfirmPassword);
+        }
     };
 
     const navigate = useNavigate()
@@ -21,8 +38,20 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
+        // Validate username
+        if (formData.username.trim().length < 2) {
+            toast.error('Name must be at least 2 characters long');
+            return;
+        }
+
+        // Validate password match
+        if (formData.password !== formData.confirmPassword) {
+            toast.error('Passwords do not match');
+            return;
+        }
+        
         try {
-            const response = await dispatch(signup(formData)).unwrap();  // 👈 Use unwrap() to get the response
+            const response = await dispatch(signup(formData)).unwrap();
             
             if (response) {
                 toast.success(`Sign Up Successfully! Welcome ${response?.user?.username}`);
@@ -51,19 +80,19 @@ const Signup = () => {
                                         htmlFor="username"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >
-                                        Your name
+                                        Your Name
                                     </label>
                                     <input
-
                                         type="text"
                                         name="username"
                                         value={formData.username}
                                         onChange={handleChange}
-                                        id="name"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="John Doe"
                                         required
-
+                                        minLength={2}
+                                        pattern="[A-Za-z\s]+"
+                                        title="Please enter a valid name (letters and spaces only)"
                                     />
                                 </div>
                                 <div>
@@ -88,20 +117,31 @@ const Signup = () => {
                                     <label
                                         htmlFor="password"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-
                                     >
                                         Password
                                     </label>
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        id="password"
-                                        placeholder="••••••••"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required
-                                        value={formData.password}
-                                        onChange={handleChange}
-                                    />
+                                    <div className="relative">
+                                        <input
+                                            type={showPassword ? "text" : "password"}
+                                            name="password"
+                                            value={formData.password}
+                                            onChange={handleChange}
+                                            placeholder="••••••••"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 pr-12 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            required
+                                        />
+                                        <button
+                                            type="button"
+                                            className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700 cursor-pointer"
+                                            onClick={() => togglePasswordVisibility('password')}
+                                        >
+                                            {showPassword ? (
+                                                <HiEyeOff className="w-5 h-5" />
+                                            ) : (
+                                                <HiEye className="w-5 h-5" />
+                                            )}
+                                        </button>
+                                    </div>
                                 </div>
                                 <div>
                                     <label
@@ -110,14 +150,28 @@ const Signup = () => {
                                     >
                                         Confirm Password
                                     </label>
-                                    <input
-                                        type="password"
-                                        name="confirm-password"
-                                        id="confirm-password"
-                                        placeholder="••••••••"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required
-                                    />
+                                    <div className="relative">
+                                        <input
+                                            type={showConfirmPassword ? "text" : "password"}
+                                            name="confirmPassword"
+                                            value={formData.confirmPassword}
+                                            onChange={handleChange}
+                                            placeholder="••••••••"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 pr-12 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            required
+                                        />
+                                        <button
+                                            type="button"
+                                            className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500 hover:text-gray-700 cursor-pointer"
+                                            onClick={() => togglePasswordVisibility('confirm')}
+                                        >
+                                            {showConfirmPassword ? (
+                                                <HiEyeOff className="w-5 h-5" />
+                                            ) : (
+                                                <HiEye className="w-5 h-5" />
+                                            )}
+                                        </button>
+                                    </div>
                                 </div>
                                 <button
                                     type="submit"

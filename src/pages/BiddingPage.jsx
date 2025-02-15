@@ -60,17 +60,22 @@ const BiddingPage = () => {
       return;
     }
 
-    const amount = parseFloat(bidAmount);
-    const minBid = property.actual_price * 1.5;
-    const currentHighestBid = bidsData.highest_bid?.amount || 0;
+    const amount = parseInt(bidAmount);
+    const minBid = Math.ceil(property.actual_price * 0.5);
+    const currentHighestBid = bidsData.highest_bid?.amount || minBid;
+
+    if (!Number.isInteger(amount)) {
+      toast.error('Please enter a whole number amount');
+      return;
+    }
 
     if (amount < minBid) {
-      toast.error(`Minimum bid must be Rs. ${minBid}`);
+      toast.error(`Minimum bid must be Rs. ${minBid.toLocaleString()}`);
       return;
     }
 
     if (amount <= currentHighestBid) {
-      toast.error('Bid must be higher than the current highest bid');
+      toast.error(`Bid must be higher than the current highest bid of Rs. ${currentHighestBid.toLocaleString()}`);
       return;
     }
 
@@ -96,9 +101,6 @@ const BiddingPage = () => {
       toast.error(errorMessage);
     }
   };
-
-
-
 
   if (loading) {
     return (
@@ -151,9 +153,9 @@ const BiddingPage = () => {
                   value={bidAmount}
                   onChange={(e) => setBidAmount(e.target.value)}
                   className="w-full border rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-                  placeholder="Enter your bid amount"
-                  min={property?.actual_price * 97}
-                  step="1000"
+                  placeholder={`Minimum bid: Rs. ${Math.ceil(property?.actual_price * 0.95).toLocaleString()}`}
+                  min={Math.ceil(property?.actual_price * 0.95)}
+                  step="1"
                   required
                 />
               </div>
@@ -161,8 +163,11 @@ const BiddingPage = () => {
               <div className="bg-gray-50 p-4 rounded-md">
                 <h3 className="font-semibold mb-2">Bidding Rules:</h3>
                 <ul className="list-disc list-inside text-gray-600 space-y-1 text-sm">
-                  <li>Minimum bid: Rs. {(property?.actual_price * 0.97)}</li>
-                  <li>Must be higher than current highest bid</li>
+                  <li>Minimum bid: Rs. {Math.ceil(property?.actual_price * 0.95).toLocaleString()}</li>
+                  <li>Bids must be in whole numbers (no decimals)</li>
+                  <li>Must be higher than current highest bid ({bidsData.highest_bid 
+                    ? `Rs. ${bidsData.highest_bid.amount.toLocaleString()}` 
+                    : 'No bids yet'})</li>
                   <li>All bids are final</li>
                 </ul>
               </div>

@@ -48,6 +48,8 @@ const authSlice = createSlice({
       state.user = null;
       state.isError = false;
       state.errorMessage = '';
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
     },
     resetError: (state) => {
       state.isError = false;
@@ -64,6 +66,7 @@ const authSlice = createSlice({
       .addCase(signin.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload.user;
+        localStorage.setItem('user', JSON.stringify(action.payload.user));
         state.isError = false;
       })
       .addCase(signin.rejected, (state, action) => {

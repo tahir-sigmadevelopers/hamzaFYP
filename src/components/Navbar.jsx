@@ -9,6 +9,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);  // Get user from Redux state
 
+  console.log(user);
+
   const handleLogout = () => {
     // Dispatch logout action
     dispatch(logout());
@@ -45,8 +47,8 @@ const Navbar = () => {
           Price Prediction
         </Link>
         {user && (
-          <Link 
-            to="/my-bids" 
+          <Link
+            to="/my-bids"
             className="text-gray-700 hover:text-blue-600"
           >
             My Bids
@@ -65,13 +67,11 @@ const Navbar = () => {
           ) : (
             <div className="flex items-center space-x-4">
               <span className="text-gray-600">
-                {/* make first letter capitalize of user  */}
-
                 Welcome, {user.username.charAt(0).toUpperCase() + user.username.slice(1)}
-                </span>
-              {user?.email === "hamzabhutta545@gmail.com" && (
-                <Link 
-                  to="/admin/dashboard" 
+              </span>
+              {user.is_staff && (
+                <Link
+                  to="/admin/dashboard"
                   className="text-blue-600 font-semibold hover:text-blue-800"
                 >
                   Admin Dashboard

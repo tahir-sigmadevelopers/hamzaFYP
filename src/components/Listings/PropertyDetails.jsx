@@ -19,7 +19,7 @@ const PropertyDetails = ({ property }) => {
         <div className="space-y-2">
           <h3 className="text-gray-500 font-medium">Offers Over</h3>
           <p className="text-teal-600 text-2xl font-bold">
-            Rs. {(property?.actual_price * 0.97)?.toLocaleString()}
+            Rs. {Math.ceil(property?.actual_price * 0.95).toLocaleString()}
           </p>
         </div>
 
