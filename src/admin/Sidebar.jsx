@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom';
-import { HiHome, HiOfficeBuilding, HiCurrencyDollar } from 'react-icons/hi';
+import { HiHome, HiOfficeBuilding, HiCurrencyDollar, HiUsers } from 'react-icons/hi';
 
 // import { Assignment, CategoryRounded, Home, MonetizationOn } from '@mui/icons-material';
 
@@ -26,6 +26,11 @@ const Sidebar = () => {
       path: '/admin/property/bids',
       name: 'Bids',
       icon: <HiCurrencyDollar className="w-6 h-6" />
+    },
+    {
+      path: '/admin/users',
+      name: 'Users',
+      icon: <HiUsers className="w-6 h-6" />
     }
   ];
 

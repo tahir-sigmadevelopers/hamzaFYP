@@ -19,6 +19,7 @@ import BiddingPage from './pages/BiddingPage'
 import ManageBidsPage from './pages/ManageBidsPage'
 import AllBidsPage from './pages/AllBidsPage'
 import UserBidsPanel from './components/UserBids/UserBidsPanel'
+import AllUsers from './admin/AllUsers'
 
 const App = () => {
 
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/admin/property/:propertyId/bids" element={<ManageBidsPage />} />
           <Route path="/admin/property/bids" element={<AllBidsPage />} />
           <Route path="/my-bids" element={<UserBidsPanel />} />
+          <Route path="/admin/users" element={<AllUsers />} />
         </Routes>
         <Footer />
       </BrowserRouter>
