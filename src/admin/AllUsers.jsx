@@ -21,7 +21,6 @@ const AllUsers = () => {
     try {
       setLoading(true);
       const response = await axios.get(`${server}api/auth/users/`);
-      console.log('Users data:', response.data);
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
