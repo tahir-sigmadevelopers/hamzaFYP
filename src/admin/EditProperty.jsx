@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
-import Sidebar from './Sidebar'
 import { Skeleton } from '../components/Loader'
 import { server } from '../components/Listings/PropertyGrid'
+import AdminLayout from './AdminLayout'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 
 const EditProperty = () => {
-
-
+    const [loading, setLoading] = useState(false);
     const [location, setLocation] = useState("")
     const [address, setAddress] = useState("")
     const [size, setSize] = useState(0)
     const [bedRooms, setBedRooms] = useState(0)
     const [bathRooms, setBathrooms] = useState(0)
-    // const [predicted_price, setPredicted_price] = useState(0)
     const [actual_price, setActual_price] = useState(0)
     const [owner_name, setOwnerName] = useState("")
     const [date_listed, setDateListed] = useState(new Date(Date.now()))
     const [images, setImages] = useState([]);
     const [description, setDescription] = useState("")
-    const [loading, setLoading] = useState(false)
     const [existingImages, setExistingImages] = useState([]);
 
     const navigate = useNavigate()
+    const params = useParams()
+    const { id } = params;
 
     const formatDate = (date) => {
         if (!(date instanceof Date) || isNaN(date)) {
@@ -33,13 +34,9 @@ const EditProperty = () => {
         return date.toISOString().split('T')[0];
     };
 
-
-
     const handleImageUpload = (e) => {
         setImages(Array.from(e.target.files));
     };
-
-
 
     const editPropertySubmit = async (e) => {
         e.preventDefault();
@@ -86,10 +83,6 @@ const EditProperty = () => {
         }
     };
 
-    const params = useParams()
-
-    const { id } = params;
-
     const getPropertyDetails = async () => {
         try {
             const response = await fetch(`${server}api/auth/property/${id}/`);
@@ -126,150 +119,201 @@ const EditProperty = () => {
         }
     };
 
-
-
-
     useEffect(() => {
         getPropertyDetails()
     }, [id])
 
+    const modules = {
+        toolbar: [
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            ['blockquote', 'code-block'],
+            [{ 'color': [] }, { 'background': [] }],
+            ['link'],
+            ['clean']
+        ],
+    };
 
+    const formats = [
+        'header',
+        'bold', 'italic', 'underline', 'strike',
+        'list', 'bullet',
+        'blockquote', 'code-block',
+        'color', 'background',
+        'link'
+    ];
 
     return (
+        <AdminLayout>
+            <div className="h-full overflow-y-auto bg-gray-50">
+                <div className="max-w-4xl mx-auto p-8">
+                    <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
+                        <h2 className="text-2xl font-bold text-gray-800 mb-8">Edit Property</h2>
 
-        <div className='flex my-16'>
-            <Sidebar />
-
-            <div className="flex min-h-full container flex-col justify-center px-6 py-4 lg:px-8">
-                <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                    <h2 className="mt-4 text-center text-2xl font-bold leading-4 tracking-tight">Edit Property </h2>
-                </div>
-
-                <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form onSubmit={editPropertySubmit} className="space-y-1" encType="multipart/form-data">
-                        <div>
-                            <label htmlFor="owner_name" className="block text-sm font-medium leading-6">Owner Name</label>
-                            <div className="mt-1">
-                                <input value={owner_name} type="text" name='owner_name' onChange={(e) => setOwnerName(e.target.value)} autoComplete="owner_name" required className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inappend ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inappend focus:ring-grey-600 sm:text-sm sm:leading-6 px-2" />
+                        <form onSubmit={editPropertySubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6" encType="multipart/form-data">
+                            <div>
+                                <label htmlFor="owner_name" className="block text-sm font-medium text-gray-700 mb-1">
+                                    Owner Name
+                                </label>
+                                <input 
+                                    value={owner_name} 
+                                    type="text" 
+                                    name='owner_name' 
+                                    onChange={(e) => setOwnerName(e.target.value)} 
+                                    required 
+                                    className="block w-full px-4 py-3 rounded-md border border-gray-300 shadow-sm focus:border-green-500 focus:ring-1 focus:ring-green-500 text-gray-900 sm:text-sm" 
+                                />
                             </div>
-                        </div>
-                        <div>
-                            <label htmlFor="date_listed" className="block text-sm font-medium leading-6">Date Listed</label>
-                            <div className="mt-1">
+
+                            <div>
+                                <label htmlFor="date_listed" className="block text-sm font-medium text-gray-700 mb-1">
+                                    Date Listed
+                                </label>
                                 <input
+                                    disabled
                                     value={formatDate(date_listed)}
-                                    type="data" name='date_listed'
+                                    type="data" 
+                                    name='date_listed'
                                     onChange={(e) => setDateListed(new Date(e.target.value))}
-                                    disabled={true}
-                                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inappend ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inappend focus:ring-grey-600 sm:text-sm sm:leading-6 px-2" />
+                                    className="block w-full px-4 py-3 rounded-md border border-gray-300 bg-gray-50 shadow-sm text-gray-500 sm:text-sm cursor-not-allowed" 
+                                />
                             </div>
-                        </div>
-                        <div>
-                            <label htmlFor="location" className="block text-sm font-medium leading-6">Location</label>
-                            <div className="mt-1">
-                                <input value={location} type="text" name='location' onChange={(e) => setLocation(e.target.value)} autoComplete="location" required className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inappend ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inappend focus:ring-grey-600 sm:text-sm sm:leading-6 px-2" />
+
+                            <div>
+                                <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-1">
+                                    Location
+                                </label>
+                                <input 
+                                    value={location} 
+                                    type="text" 
+                                    name='location' 
+                                    onChange={(e) => setLocation(e.target.value)} 
+                                    required 
+                                    className="block w-full px-4 py-3 rounded-md border border-gray-300 shadow-sm focus:border-green-500 focus:ring-1 focus:ring-green-500 text-gray-900 sm:text-sm" 
+                                />
                             </div>
-                        </div>
-                        <div>
-                            <label htmlFor="address" className="block text-sm font-medium leading-6">Adress</label>
-                            <div className="mt-1">
-                                <input value={address} type="text" name='address' onChange={(e) => setAddress(e.target.value)} autoComplete="address" required className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inappend ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inappend focus:ring-grey-600 sm:text-sm sm:leading-6 px-2" />
+
+                            <div>
+                                <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
+                                    Address
+                                </label>
+                                <input 
+                                    value={address} 
+                                    type="text" 
+                                    name='address' 
+                                    onChange={(e) => setAddress(e.target.value)} 
+                                    required 
+                                    className="block w-full px-4 py-3 rounded-md border border-gray-300 shadow-sm focus:border-green-500 focus:ring-1 focus:ring-green-500 text-gray-900 sm:text-sm" 
+                                />
                             </div>
-                        </div>
-                        <div>
-                            <label htmlFor="size" className="block text-sm font-medium leading-6">Size (sqft)</label>
-                            <div className="mt-1">
-                                <input value={size} type="number" name='size' onChange={(e) => setSize(e.target.value)} autoComplete="location" required className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inappend ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inappend focus:ring-grey-600 sm:text-sm sm:leading-6 px-2" />
+
+                            <div>
+                                <label htmlFor="size" className="block text-sm font-medium text-gray-700 mb-1">
+                                    Size (sq ft)
+                                </label>
+                                <input 
+                                    value={size} 
+                                    type="number" 
+                                    name='size' 
+                                    onChange={(e) => setSize(e.target.value)} 
+                                    required 
+                                    className="block w-full px-4 py-3 rounded-md border border-gray-300 shadow-sm focus:border-green-500 focus:ring-1 focus:ring-green-500 text-gray-900 sm:text-sm" 
+                                />
                             </div>
-                        </div>
-                        <div>
-                            <label htmlFor="bedrooms" className="block text-sm font-medium leading-6">Bedrooms</label>
-                            <div className="mt-1">
+
+                            <div>
+                                <label htmlFor="actual_price" className="block text-sm font-medium text-gray-700 mb-1">
+                                    Actual Price
+                                </label>
+                                <input 
+                                    value={actual_price} 
+                                    onChange={(e) => setActual_price(e.target.value)} 
+                                    type="number" 
+                                    name='actual_price' 
+                                    required 
+                                    className="block w-full px-4 py-3 rounded-md border border-gray-300 shadow-sm focus:border-green-500 focus:ring-1 focus:ring-green-500 text-gray-900 sm:text-sm" 
+                                />
+                            </div>
+
+                            <div>
+                                <label htmlFor="bedrooms" className="block text-sm font-medium text-gray-700 mb-1">
+                                    Bedrooms
+                                </label>
                                 <input 
                                     value={bedRooms} 
                                     type="number" 
                                     name='bedrooms' 
                                     onChange={(e) => setBedRooms(e.target.value)} 
                                     required 
-                                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inappend ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inappend focus:ring-grey-600 sm:text-sm sm:leading-6 px-2" 
+                                    className="block w-full px-4 py-3 rounded-md border border-gray-300 shadow-sm focus:border-green-500 focus:ring-1 focus:ring-green-500 text-gray-900 sm:text-sm" 
                                 />
                             </div>
-                        </div>
-                        <div>
-                            <label htmlFor="bathrooms" className="block text-sm font-medium leading-6">Bathrooms</label>
-                            <div className="mt-1">
+
+                            <div>
+                                <label htmlFor="bathrooms" className="block text-sm font-medium text-gray-700 mb-1">
+                                    Bathrooms
+                                </label>
                                 <input 
                                     value={bathRooms} 
                                     type="number" 
                                     name='bathrooms' 
                                     onChange={(e) => setBathrooms(e.target.value)} 
                                     required 
-                                    className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inappend ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inappend focus:ring-grey-600 sm:text-sm sm:leading-6 px-2" 
+                                    className="block w-full px-4 py-3 rounded-md border border-gray-300 shadow-sm focus:border-green-500 focus:ring-1 focus:ring-green-500 text-gray-900 sm:text-sm" 
                                 />
                             </div>
-                        </div>
 
-
-
-                        {/* 
-                        <div>
-                            <div className="flex items-center justify-between">
-                                <label htmlFor="Predicted_price" className="block text-sm font-medium leading-6" autoComplete="Predicted_price" >Predicted Price</label>
-                            </div>
-
-                            <div className="mt-1">
-                                <input value={predicted_price} onChange={(e) => setPredicted_price(e.target.value)} type="number" name='Predicted_price' autoComplete="Predicted_price" required className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inappend ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inappend focus:ring-text-gray-800sm:text-sm sm:leading-6 px-2" />
-                            </div>
-                        </div> */}
-
-                        <div>
-                            <div className="flex items-center justify-between">
-                                <label htmlFor="actual_price" className="block text-sm font-medium leading-6" autoComplete="actual_price" >Actual Price</label>
-                            </div>
-
-                            <div className="mt-1">
-                                <input value={actual_price} onChange={(e) => setActual_price(e.target.value)} type="number" name='actual_price' autoComplete="actual_price" required className="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inappend ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inappend focus:ring-text-gray-800sm:text-sm sm:leading-6 px-2" />
-                            </div>
-                        </div>
-
-
-
-
-
-
-                        <div>
-                            <label htmlFor="description" className="block text-sm font-medium leading-6">Description</label>
-                            <div className="mt-2">
-                                <textarea name="description" rows="4" className="w-full text-sm text-gray-900 bg-white   focus:ring-0  border p-1 border-black rounded-sm" placeholder="Write Property Description..." value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
-
-                            </div>
-                        </div>
-
-                        <div className='pb-2'>
-                            <label htmlFor="images" className="block text-sm font-medium leading-6">Images</label>
-                            
-                            {/* Show existing images */}
-                            {existingImages?.length > 0 && (
-                                <div className="grid grid-cols-3 gap-4 mb-4">
-                                    {existingImages?.map((img, index) => (
-                                        <div key={index} className="relative">
-                                            <img 
-                                                src={`${img?.image}`} 
-                                                alt={`Property ${index + 1}`} 
-                                                className="w-full h-32 object-cover rounded-lg"
-                                            />
-                                        </div>
-                                    ))}
+                            <div className="md:col-span-2">
+                                <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+                                    Description
+                                </label>
+                                <div className="h-96">
+                                    <ReactQuill
+                                        theme="snow"
+                                        value={description}
+                                        onChange={setDescription}
+                                        modules={modules}
+                                        formats={formats}
+                                        className="h-80"
+                                        placeholder="Write Property Description..."
+                                    />
                                 </div>
-                            )}
-                            
-                            <div className="mt-1 pb-1">
+                            </div>
+
+                            <div className="md:col-span-2">
+                                <label htmlFor="images" className="block text-sm font-medium text-gray-700 mb-1">
+                                    Images
+                                </label>
+                                
+                                {/* Show existing images */}
+                                {existingImages?.length > 0 && (
+                                    <div className="grid grid-cols-3 gap-4 mb-4">
+                                        {existingImages?.map((img, index) => (
+                                            <div key={index} className="relative">
+                                                <img 
+                                                    src={`${img?.image}`} 
+                                                    alt={`Property ${index + 1}`} 
+                                                    className="w-full h-32 object-cover rounded-lg"
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                                
                                 <input
                                     name="images"
                                     accept="image/*"
                                     multiple
                                     onChange={handleImageUpload}
-                                    className="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 shadow-lg p-4"
+                                    className="block w-full px-4 py-3 text-sm text-gray-500 
+                                        file:mr-4 file:py-2 file:px-4
+                                        file:rounded-md file:border-0
+                                        file:text-sm file:font-semibold
+                                        file:bg-green-50 file:text-green-700
+                                        hover:file:bg-green-100
+                                        border border-gray-300 rounded-md
+                                        focus:outline-none focus:ring-1 focus:ring-green-500"
                                     type="file"
                                 />
                                 
@@ -288,20 +332,24 @@ const EditProperty = () => {
                                     </div>
                                 )}
                             </div>
-                        </div>
 
-                        <div>
-                            {
-                                loading ? <Skeleton length={1} /> : <button type="submit" className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offappend-2 mt-4 bg-green-600 hover:bg-green-700">Update</button>
-                            }
-                        </div>
-                    </form>
-
-
+                            <div className="md:col-span-2 mt-4">
+                                {loading ? (
+                                    <Skeleton length={1} />
+                                ) : (
+                                    <button 
+                                        type="submit" 
+                                        className="w-full py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200"
+                                    >
+                                        Update Property
+                                    </button>
+                                )}
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-
+        </AdminLayout>
     )
 }
 

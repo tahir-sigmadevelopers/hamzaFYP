@@ -1,18 +1,14 @@
 import React, { useEffect } from 'react'
 import Sidebar from './Sidebar'
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
 import { toast } from 'react-hot-toast'
 import { useState } from 'react'
-import { Skeleton } from '../components/Loader'
 import { server } from '../components/Listings/PropertyGrid'
+import AdminLayout from './AdminLayout'
 
 const AllProperties = () => {
-
-
     const [loading, setLoading] = useState(false)
     const [properties, setProperties] = useState([])
-
 
     const getAllProperties = async () => {
         try {
@@ -22,108 +18,137 @@ const AllProperties = () => {
             if (response.ok) {
                 const data = await response.json();
                 setProperties(data)
-                setLoading(false)
             }
         } catch (error) {
-            setLoading(false)
             console.log(error.message);
             toast.error(error.message)
+        } finally {
+            setLoading(false)
         }
     }
 
-
-    const deleteProperty = (propertyId) => {
-        fetch(`${server}api/auth/property/delete/${propertyId}/`, {
-            method: 'DELETE',
-        })
-            .then((response) => {
+    const deleteProperty = async (propertyId) => {
+        if (window.confirm('Are you sure you want to delete this property?')) {
+            try {
+                const response = await fetch(`${server}api/auth/property/delete/${propertyId}/`, {
+                    method: 'DELETE',
+                });
+                
                 if (response.ok) {
                     toast.success('Property deleted successfully');
-                    getAllProperties()
+                    getAllProperties();
                 } else {
-                    console.log(response);
-
                     toast.error('Failed to delete property');
                 }
-            })
-            .catch((error) => {
+            } catch (error) {
                 console.error('Error deleting property:', error);
-            });
+                toast.error('Error deleting property');
+            }
+        }
     };
 
     useEffect(() => {
         getAllProperties()
     }, [])
+
+    if (loading) {
+        return (
+            <div className="flex justify-center items-center min-h-screen">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+            </div>
+        );
+    }
+
     return (
-        <div className='flex'>
-            <Sidebar />
-
-            <section className=" body-font container">
-                <div className="container px-5 py-6 mx-auto">
-                    <div className="flex flex-col text-center w-full mb-8">
-                        <h1 className="sm:text-4xl text-3xl font-medium title-font mb-2">All Properties</h1>
-                        <Link to={"/admin/add-property"} className='mt-4 bg-green-600 hover:bg-green-700  text-white w-52 py-2 rounded-sm'>Add New Property</Link>
-                    </div>
-                    <div className=" w-full mx-auto overflow-auto">
-                        <table className="table-auto w-full text-left whitespace-no-wrap border-collapse border border-gray-300">
-                            <thead>
-                                <tr>
-                                    <th className="px-4 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Property ID</th>
-                                    <th className="px-4 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Address</th>
-                                    <th className="px-4 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300 rounded-tl rounded-bl">Location</th>
-                                    <th className="px-1 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Bathrooms</th>
-                                    <th className="px-1 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Bedrooms</th>
-                                    <th className="px-4 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Size</th>
-                                    {/* <th className="px-4 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Predicted Price</th> */}
-                                    <th className="px-4 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Owner Name</th>
-                                    <th className="px-4 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Date Listed</th>
-                                    <th className="px-4 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Edit</th>
-                                    <th className="px-4 py-3 title-font tracking-wider font-medium text-sm md:text-lg border-b border-gray-300">Delete</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {
-                                    loading ? <div className='flex h-[50vh] w-full justify-center items-center ml-40'><Skeleton length={6} /></div> : <>
-
-                                        {
-                                            properties && properties.map((property) => (
-                                                <tr key={property?.id}>
-                                                    <td className="px-3 py-3 border-b border-gray-300">{property.id}</td>
-                                                    <td className="px-3 py-3 border-b border-gray-300">{property.address}</td>
-                                                    <td className="px-4 py-3 border-b border-gray-300">{property.location}</td>
-                                                    <td className="px-1 py-3 text-center border-b border-gray-300">{property.bathrooms}</td>
-                                                    <td className="px-1 py-3 text-center border-b border-gray-300">{property.bedrooms}</td>
-                                                    <td className="px-4 py-3 border-b border-gray-300">{property.size}</td>
-                                                    {/* <td className="px-4 py-3 border-b border-gray-300">{property.predicted_price}</td> */}
-                                                    <td className="px-4 py-3 border-b border-gray-300">{property.owner_name}</td>
-                                                    <td className="px-4 py-3 border-b border-gray-300">{property.date_listed}</td>
-                                                    <td className="px-4 py-3 text-lg border-b border-gray-300">
-                                                        <button className='bg-black hover:bg-gray-700 text-white w-full py-0.5 rounded-md px-3'>
-                                                            <Link to={`/admin/edit-property/${property?.id}`}>Edit</Link>
-                                                        </button>
-                                                    </td>
-                                                    <td className="px-4 py-3 text-lg border-b border-gray-300">
-                                                        <button
-                                                            className='bg-red-500 hover:bg-red-600 text-white w-full py-0.5 rounded-md'
-                                                            onClick={() => deleteProperty(property.id)}>
-                                                            Delete
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            ))
-                                        }
-                                    </>
-                                }
-                            </tbody>
-                        </table>
-
+        <AdminLayout>
+            <div className="p-8">
+                <div className="max-w-7xl mx-auto">
+                    <div className="flex justify-between items-center mb-8">
+                        <h1 className="text-2xl font-bold text-gray-800">All Properties</h1>
+                        <Link 
+                            to="/admin/add-property"
+                            className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md transition duration-200"
+                        >
+                            Add New Property
+                        </Link>
                     </div>
 
+                    <div className="bg-white shadow rounded-lg overflow-hidden">
+                        <div className="overflow-x-auto">
+                            <table className="w-full">
+                                <thead className="bg-gray-50">
+                                    <tr>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bathrooms</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bedrooms</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Size</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Owner</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Listed Date</th>
+                                        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="bg-white divide-y divide-gray-200">
+                                    {properties.map((property) => (
+                                        <tr key={property.id} className="hover:bg-gray-50">
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <span className="text-sm font-semibold text-gray-900">{property.id}</span>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <span className="text-sm text-gray-900">{property.address}</span>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <span className="text-sm text-gray-900">{property.location}</span>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-center">
+                                                <span className="text-sm text-gray-900">{property.bathrooms}</span>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-center">
+                                                <span className="text-sm text-gray-900">{property.bedrooms}</span>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <span className="text-sm text-gray-900">{property.size} sqft</span>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <span className="text-sm text-gray-900">{property.owner_name}</span>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <span className="text-sm text-gray-900">
+                                                    {new Date(property.date_listed).toLocaleDateString()}
+                                                </span>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                                <div className="flex space-x-2">
+                                                    <Link
+                                                        to={`/admin/edit-property/${property.id}`}
+                                                        className="text-white bg-gray-600 hover:bg-gray-700 px-3 py-1 rounded-md transition duration-200"
+                                                    >
+                                                        Edit
+                                                    </Link>
+                                                    <button
+                                                        onClick={() => deleteProperty(property.id)}
+                                                        className="text-white bg-red-500 hover:bg-red-600 px-3 py-1 rounded-md transition duration-200"
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                            
+                            {properties.length === 0 && (
+                                <div className="text-center py-8 text-gray-500">
+                                    No properties found
+                                </div>
+                            )}
+                        </div>
+                    </div>
                 </div>
-            </section>
-
-        </div>
+            </div>
+        </AdminLayout>
     )
 }
 

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import ImageGallery from "./ImageGallery";
 import PropertyDetails from "./PropertyDetails";
 import BidSection from "./BidSection";
-import GuideSection from "./GuideSection";
 import LocationMap from "./LocationMap";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -50,6 +49,7 @@ const ListingDetails = () => {
         <div className="lg:col-span-2">
           <ImageGallery images={property?.images} />
           <PropertyDetails property={property} />
+         
         </div>
 
         {/* Right Section */}

@@ -84,7 +84,10 @@ const UserBidsPanel = () => {
                 <thead className="bg-gray-50">
                   <tr>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                      Property
+                      ID
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                      Address
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                       Bid Amount
@@ -100,6 +103,11 @@ const UserBidsPanel = () => {
                 <tbody className="divide-y divide-gray-200">
                   {userBids.map((bid) => (
                     <tr key={bid.id}>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="text-sm font-semibold">
+                          {bid.id}
+                        </span>
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <Link 
                           to={`/properties/details/${bid.property}`}

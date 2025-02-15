@@ -1,16 +1,17 @@
 import React from 'react';
 import { FaBed, FaBath } from 'react-icons/fa';
 import { BsBuilding } from 'react-icons/bs';
+import parse from 'html-react-parser';
 
 const PropertyDetails = ({ property }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md mt-8 p-16  max-w-3xl mx-auto">
+    <div className="bg-white rounded-lg shadow-md mt-8 p-16  max-w-4xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
         {/* Asking Price */}
         <div className="space-y-2">
           <h3 className="text-gray-500 font-medium">Asking Price</h3>
           <p className="text-teal-600 text-2xl font-bold">
-            Rs. {property?.actual_price }
+            Rs. {property?.actual_price}
           </p>
         </div>
 
@@ -67,7 +68,10 @@ const PropertyDetails = ({ property }) => {
       </div>
 
 
-      <p className='text-gray-500  mt-8 '><span className='font-bold text-xl'>Description:</span> {property?.description}.</p>
+      <p className='text-gray-800 font-bold text-xl mt-12'>Description:</p>
+      <div className=" max-w-none mt-2 bg-white  rounded-lg ">
+        {property.description ? parse(property.description) : ''}
+      </div>
     </div>
 
   );
