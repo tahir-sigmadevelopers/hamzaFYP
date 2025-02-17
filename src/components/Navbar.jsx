@@ -43,9 +43,12 @@ const Navbar = () => {
         <Link to="/contact" className="text-gray-700 hover:text-blue-600">
           Contact
         </Link>
-        <Link to="/predict-price" className="text-gray-700 hover:text-blue-600">
-          Price Prediction
-        </Link>
+        {/* Show Price Prediction link only to admin users */}
+        {user?.is_staff && (
+          <Link to="/predict-price" className="text-gray-700 hover:text-blue-600">
+            Price Prediction
+          </Link>
+        )}
         {user && (
           <Link
             to="/my-bids"
