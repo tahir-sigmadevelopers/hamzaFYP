@@ -97,6 +97,9 @@ const AllBidsPage = () => {
                       Bid ID
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      Property ID
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       Address
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -123,6 +126,14 @@ const AllBidsPage = () => {
                         <span className="text-sm font-semibold">
                           {bid.id}
                         </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <Link
+                          to={`/admin/property/${bid.property}/bids`}
+                          className="text-blue-600 hover:text-blue-800"
+                        >
+                          {bid.property}
+                        </Link>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <Link

@@ -37,7 +37,7 @@ const ManageBidsPage = () => {
     try {
       await axios.post(`${server}api/auth/bids/${bidId}/accept/`);
       toast.success('Bid accepted successfully');
-      
+
       // Refresh bids
       const bidsResponse = await axios.get(`${server}api/auth/property/${propertyId}/bids/`);
       setBids(bidsResponse.data.all_bids);
@@ -50,7 +50,7 @@ const ManageBidsPage = () => {
     try {
       await axios.post(`${server}api/auth/bids/${bidId}/reject/`);
       toast.success('Bid rejected successfully');
-      
+
       // Refresh bids
       const bidsResponse = await axios.get(`${server}api/auth/property/${propertyId}/bids/`);
       setBids(bidsResponse.data.all_bids);
@@ -102,6 +102,9 @@ const ManageBidsPage = () => {
                     Bid ID
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Property ID
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Amount
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -110,14 +113,17 @@ const ManageBidsPage = () => {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
-            
+
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {bids.map((bid) => (
                   <tr key={bid.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      #{bid.id}
+                      {bid.id}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {bid.property}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className="text-lg font-semibold text-gray-900">
@@ -129,13 +135,13 @@ const ManageBidsPage = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                        ${bid.status === 'accepted' ? 'bg-green-100 text-green-800' : 
-                          bid.status === 'rejected' ? 'bg-red-100 text-red-800' : 
-                          'bg-yellow-100 text-yellow-800'}`}>
+                        ${bid.status === 'accepted' ? 'bg-green-100 text-green-800' :
+                          bid.status === 'rejected' ? 'bg-red-100 text-red-800' :
+                            'bg-yellow-100 text-yellow-800'}`}>
                         {bid.status || 'pending'}
                       </span>
                     </td>
-            
+
                   </tr>
                 ))}
               </tbody>
