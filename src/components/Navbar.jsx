@@ -70,7 +70,7 @@ const Navbar = () => {
           ) : (
             <div className="flex items-center space-x-4">
               <span className="text-gray-600">
-                Welcome, {user.username.charAt(0).toUpperCase() + user.username.slice(1)}
+                Welcome, {user?.username?.charAt(0)?.toUpperCase() + user?.username?.slice(1)}
               </span>
               {user.is_staff && (
                 <Link
